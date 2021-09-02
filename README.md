@@ -1,2 +1,2 @@
 # framework-bundle
-Nigatedev framework bundle where Nigatedev framework dependencies live!
+Nigatedev framework bundle, where Nigatedev framework dependencies live!
