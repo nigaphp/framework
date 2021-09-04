@@ -7,9 +7,8 @@
  
 namespace Nigatedev\FrameworkBundle\Config;
 
-use Nigatedev\FrameworkBundle\App;
-use Nigatedev\Framework\Filesystem\Filesystem;
 use Nigatedev\FrameworkBundle\Database\Config as DBConfig;
+use Nigatedev\Framework\Filesystem\Filesystem;
 
 /**
  * Global Configurator
@@ -108,5 +107,15 @@ class Configurator
              "controllerDir" => $this->getControllerDir(),
              "viewsDir" => $this->getViewsDir(),
         ];
+    }
+     
+    /**
+     * Load config
+     *
+     * @return mixed
+     */
+    public function loader($files)
+    {
+        
     }
 }
