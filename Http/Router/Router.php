@@ -1,17 +1,23 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework core Application
+ * This file is part of the Nigatedev PHP framework package
  *
- *  (c) Abass Ben Cheik <abass@todaysdev.com>
+ * (c) Abass Ben Cheik <abass@todaysdev.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Nigatedev\FrameworkBundle\Http\Router;
 
-use Nigatedev\FrameworkBundle\Application\App;
-use Nigatedev\FrameworkBundle\Http\Request;
-use Nigatedev\FrameworkBundle\Http\Response;
+use Nigatedev\FrameworkBundle\ {
+Application\App,
+Http\Request,
+Http\Response,
+Debugger\Debugger
+};
+
 use Nigatedev\Diyan\Diyan;
-use Nigatedev\FrameworkBundle\Debugger\Debugger;
 
 /**
  * Route generator
@@ -49,11 +55,11 @@ class Router extends Debugger
 
     /**
      * @param string $path
-     * @param string $callback
+     * @param mixed $callback
      *
      * @return void
      */
-    public function get(string $path, string $callback): void
+    public function get(string $path, $callback): void
     {
         $this->routes["get"][$path] = $callback;
     }
@@ -71,7 +77,7 @@ class Router extends Debugger
     }
 
     /**
-     * @throw CoreAppException
+     * @throws CoreAppException
      *
      * @return mixed
      */
