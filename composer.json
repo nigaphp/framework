@@ -17,6 +17,8 @@
     ],
     "require": {
       "php": "^7.3|^8.0",
+      "doctrine/orm": "^2.9",
+      "doctrine/cache": "~1.11",
       "nigatedev/diyan": "^1.0",
       "nigatedev/support": "^1.0",
       "nigatedev/query-builder": "^1.0",
