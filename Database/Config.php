@@ -20,21 +20,19 @@ class Config
 
     public static function getConfig()
     {
-      try {
-        
-        if (isset($_ENV["MYSQL_DRIVER"]) && isset($_ENV["SQLITE_DRIVER"])) {
-            throw new DBException("Fatal:  Error database configuration, only one driver can be used");
-        } elseif (isset($_ENV["MYSQL_DRIVER"]) && (string)$_ENV["MYSQL_DRIVER"] === "mysql") {
-            $driver = "mysql";
-        } elseif (isset($_ENV["SQLITE_DRIVER"]) && (string)$_ENV["SQLITE_DRIVER"] === "sqlite") {
-            $driver = "sqlite";
-        } else {
-            throw new DBException("Fatal: Can't find database configuration! Please check your .env file or try 'composer update'");
+        try {
+            if (isset($_ENV["MYSQL_DRIVER"]) && isset($_ENV["SQLITE_DRIVER"])) {
+                throw new DBException("Fatal:  Error database configuration, only one driver can be used");
+            } elseif (isset($_ENV["MYSQL_DRIVER"]) && (string)$_ENV["MYSQL_DRIVER"] === "mysql") {
+                $driver = "mysql";
+            } elseif (isset($_ENV["SQLITE_DRIVER"]) && (string)$_ENV["SQLITE_DRIVER"] === "sqlite") {
+                $driver = "sqlite";
+            } else {
+                throw new DBException("Fatal: Can't find database configuration! Please check your .env file or try 'composer update'");
+            }
+        } catch (DBException $e) {
+            die($e->getMessage());
         }
-      }
-       catch (DBException $e) {
-         die($e->getMessage());
-      }
       
         return [
         "driver" => $driver,

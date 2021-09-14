@@ -10,12 +10,10 @@
 
 namespace Nigatedev\FrameworkBundle\Http\Router;
 
-use Nigatedev\FrameworkBundle\ {
-Application\App,
-Http\Request,
-Http\Response,
-Debugger\Debugger
-};
+use Nigatedev\FrameworkBundle\Application\App;
+use Nigatedev\FrameworkBundle\Http\Request;
+use Nigatedev\FrameworkBundle\Http\Response;
+use Nigatedev\FrameworkBundle\Debugger\Debugger;
 
 use Nigatedev\Diyan\Diyan;
 

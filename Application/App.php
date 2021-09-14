@@ -9,15 +9,13 @@ namespace Nigatedev\FrameworkBundle\Application;
 
 use Nigatedev\Diyan\Diyan;
 
-use Nigatedev\FrameworkBundle\ {
-Http\Request,
-Http\Response,
-Http\Router\Router,
-Debugger\Debugger,
-Config\Configurator,
-Database\DB,
-Exception\AppException
-};
+use Nigatedev\FrameworkBundle\Http\Request;
+use Nigatedev\FrameworkBundle\Http\Response;
+use Nigatedev\FrameworkBundle\Http\Router\Router;
+use Nigatedev\FrameworkBundle\Debugger\Debugger;
+use Nigatedev\FrameworkBundle\Config\Configurator;
+use Nigatedev\FrameworkBundle\Database\DB;
+use Nigatedev\FrameworkBundle\Exception\AppException;
 
 /**
  * The Nigatedev PHP framework main core application class

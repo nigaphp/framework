@@ -116,6 +116,5 @@ class Configurator
      */
     public function loader($files)
     {
-        
     }
 }
