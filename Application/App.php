@@ -1,10 +1,13 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework core Application
+ * This file is part of the Nigatedev framework package.
  *
- *  (c) Abass Ben Cheik <abass@todaysdev.com>
+ * (c) Abass Ben Cheik <abass@todaysdev.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
- 
+
 namespace Nigatedev\FrameworkBundle\Application;
 
 use Nigatedev\Diyan\Diyan;
@@ -15,7 +18,6 @@ use Nigatedev\FrameworkBundle\Http\Router\Router;
 use Nigatedev\FrameworkBundle\Debugger\Debugger;
 use Nigatedev\FrameworkBundle\Config\Configurator;
 use Nigatedev\FrameworkBundle\Database\DB;
-use Nigatedev\FrameworkBundle\Exception\AppException;
 
 /**
  * The Nigatedev PHP framework main core application class
@@ -26,7 +28,7 @@ class App
 {
   
     /**
-     * @var App instance
+     * @var App
      */
     public static App $app;
   
@@ -37,32 +39,32 @@ class App
     public static $APP_ROOT;
   
     /**
-     * @var Diyan instance
+     * @var Diyan
      */
     public Diyan $diyan;
     /**
-     * @var Response instance
+     * @var Response
      */
     public Response $response;
   
     /**
-     * @var Request instance
+     * @var Request
      */
     public Request $request;
   
     /**
-     * @var Router instance
+     * @var Router
      */
     public Router $router;
   
     /**
-     * @var Debugger instance
+     * @var Debugger
      */
     public Debugger $debugger;
   
   
     /**
-     * @var DB instance
+     * @var DB
      */
     public DB $db;
   
@@ -74,8 +76,8 @@ class App
      */
     public function __construct(string $appRoot, array $configs)
     {
-        self::$app = $this;
         self::$APP_ROOT = $appRoot;
+        self::$app = $this;
         $this->request = new Request();
         $this->response = new Response();
         $this->debugger = new Debugger();
@@ -85,7 +87,7 @@ class App
     }
     
     /**
-     * @throw AppException
+     * @throws AppException
      *
      * @return void
      */

@@ -5,7 +5,7 @@
  *  (c) Abass Ben Cheik <abass@todaysdev.com>
  */
  
-namespace Nigatedev\FrameworkBundle\Exception;
+namespace Nigatedev\FrameworkBundle\Application;
 
 /**
  * App core exceptions

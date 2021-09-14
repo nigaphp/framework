@@ -8,9 +8,10 @@
 namespace Nigatedev\FrameworkBundle\Controller;
 
 use Nigatedev\FrameworkBundle\Application\App;
+use Nigatedev\FrameworkBundle\Application\Configuration as AppConfig;
 
 /**
- * App core controller class
+ * App core controller
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
@@ -26,5 +27,11 @@ class Controller
     public function render(string $view, array $params = [])
     {
         return App::$app->diyan->render($view, $params);
+    }
+    
+    public function getEntityManager()
+    {
+        
+        return AppConfig::getEntityManagerConfig();
     }
 }

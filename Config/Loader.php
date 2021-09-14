@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /*
  * This file is part of the Nigatedev PHP framework package
  *
@@ -8,12 +8,10 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
-
 namespace Nigatedev\FrameworkBundle\Config;
 
 use Nigatedev\FrameworkBundle\Application\App;
-use Nigatedev\FrameworkBundle\Parser\Parser;
+use Nigatedev\Framework\Parser\Parser;
 
 /**
  * Config files loader

@@ -8,16 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Handler;
-
-use Nigatedev\FrameworkBundle\Debugger\Debugger;
+namespace Nigatedev\FrameworkBundle\Http;
 
 /**
- * Errors Handler
+ * Route generator
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class ErrorHandler extends Debugger
+class HttpException extends \Exception
 {
-  
 }
