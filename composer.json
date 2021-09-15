@@ -26,7 +26,8 @@
       "nigatedev/parser": "^1.0",
       "nigatedev/console": "^1.0",
       "vlucas/phpdotenv": "^5.3",
-      "guzzlehttp/psr7": "^2.0"
+      "guzzlehttp/psr7": "^2.0",
+      "twig/twig": "^3.3"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6",

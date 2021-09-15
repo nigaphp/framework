@@ -54,4 +54,9 @@ class Configuration
             $getOrmConfig["annotation"]
         );
     }
+    
+    public static function getDefaultTemplateConfig()
+    {
+          return  $getTemplateConfig = JSONParser::parseJFile(self::getAppRoot(), "/config/app.json");
+    }
 }
