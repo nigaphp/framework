@@ -42,7 +42,7 @@ class Configuration
         
         try {
             require_once self::getAppRoot()."/config/env.loader.php";
-            $getOrmConfig = JSONParser::parseJFile(self::getAppRoot(), "/config/dependencies/doctrine.json");
+            $getOrmConfig = self::getParser("/config/dependencies/doctrine.json");
         } catch (ParseException $e) {
             die($e->getMessage() . " In file " . $e->getFile() . " On line " . $e->getLine());
         }
@@ -55,8 +55,18 @@ class Configuration
         );
     }
     
+    public static function getAppConfig()
+    {
+        return self::getParser("/config/app.json");
+    }
+    
     public static function getDefaultTemplateConfig()
     {
-          return  $getTemplateConfig = JSONParser::parseJFile(self::getAppRoot(), "/config/app.json");
+        return self::getAppConfig();
+    }
+    
+    private static function getParser($fileToParse)
+    {
+          return  JSONParser::parseJFile(self::getAppRoot(), $fileToParse);
     }
 }
