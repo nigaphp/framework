@@ -93,8 +93,9 @@ class App
      */
     public function run(): void
     {
-        if (version_compare(Configurator::CURRENT_VERSION, Configurator::APP_MIN_VERSION, "<")) {
-            throw new AppException(printf("Fatal: Your are using PHP version %s which is not enough to run Nigatedev app... minimum is %s", Configurator::CURRENT_VERSION, Configurator::APP_MIN_VERSION));
+        if (version_compare(Configurator::CURRENT_VERSION, PHP_VERSION, "<")) {
+            $message = (string)printf("Fatal: Your are using PHP version %s which is not enough to run Nigatedev app... minimum is %s", Configurator::CURRENT_VERSION, PHP_VERSION);
+            throw new AppException($message);
         }
         echo $this->router->pathResolver();
     }
