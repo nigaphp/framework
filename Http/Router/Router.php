@@ -112,7 +112,7 @@ class Router extends Debugger
         }
 
         if (is_array($callback)) {
-            if (!class_exists($callback[0])) {
+            if (!class_exists($callback[0]::class)) {
                 $this->response->setStatusCode(404);
                 $this->diyan->setBody($this->diyan->getNotFound());
                 return $this->diyan->render(null, []);

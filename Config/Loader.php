@@ -61,6 +61,6 @@ class Loader
    */
     public static function load(string $file)
     {
-        return App::$APP_ROOT."/config/$file";
+        return require_once App::$APP_ROOT."/config/$file";
     }
 }

@@ -18,62 +18,63 @@ use Nigatedev\FrameworkBundle\Http\Router\Router;
 use Nigatedev\FrameworkBundle\Debugger\Debugger;
 use Nigatedev\FrameworkBundle\Config\Configurator;
 use Nigatedev\FrameworkBundle\Database\DB;
+use ReflectionClass;
 
 /**
- * The Nigatedev PHP framework main core application class
- *
- * @author Abass Ben Cheik <abass@todaysdev.com>
- */
+* The Nigatedev PHP framework main core application class
+*
+* @author Abass Ben Cheik <abass@todaysdev.com>
+*/
 class App
 {
-  
+
     /**
-     * @var App
-     */
+    * @var App
+    */
     public static App $app;
-  
-  
+
+
     /**
-     * @var string $APP_ROOT
-     */
+    * @var string $APP_ROOT
+    */
     public static $APP_ROOT;
-  
+
     /**
-     * @var Diyan
-     */
+    * @var Diyan
+    */
     public Diyan $diyan;
     /**
-     * @var Response
-     */
+    * @var Response
+    */
     public Response $response;
-  
+
     /**
-     * @var Request
-     */
+    * @var Request
+    */
     public Request $request;
-  
+
     /**
-     * @var Router
-     */
+    * @var Router
+    */
     public Router $router;
-  
+
     /**
-     * @var Debugger
-     */
+    * @var Debugger
+    */
     public Debugger $debugger;
-  
-  
+
+
     /**
-     * @var DB
-     */
+    * @var DB
+    */
     public DB $db;
-  
+
     /**
-     * App constructor
-     *
-     * @param string $appRoot
-     * @param array[] $configs
-     */
+    * App constructor
+    *
+    * @param string $appRoot
+    * @param array[] $configs
+    */
     public function __construct(string $appRoot, array $configs)
     {
         self::$APP_ROOT = $appRoot;
@@ -85,12 +86,12 @@ class App
         $this->diyan = new Diyan();
         $this->db = new DB($configs["db"]);
     }
-    
+
     /**
-     * @throws AppException
-     *
-     * @return void
-     */
+    * @throws AppException
+    *
+    * @return void
+    */
     public function run(): void
     {
         if (version_compare(Configurator::CURRENT_VERSION, PHP_VERSION, "<")) {
@@ -98,5 +99,28 @@ class App
             throw new AppException($message);
         }
         echo $this->router->pathResolver();
+    }
+
+    public function controllerRegister(array $controllers)
+    {
+
+        if (is_array($controllers)) {
+            foreach ($controllers as $controller) {
+                $class = new ReflectionClass($controller);
+
+                foreach ($class->getMethods() as $method) {
+                    $routeAttributes = $method->getAttributes(\Nigatedev\FrameworkBundle\Attributes\Route::class);
+
+                    if (empty($routeAttributes)) {
+                        continue;
+                    }
+
+                    foreach ($routeAttributes as $routeAttribute) {
+                        $route = $routeAttribute->newInstance();
+                        self::$app->router->get($route->getPath(), [new $controller, $method->getName()]);
+                    }
+                }
+            }
+        }
     }
 }
