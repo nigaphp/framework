@@ -29,7 +29,7 @@ class Configuration
     public static function getAppRoot()
     {
         if (php_sapi_name() === "cli") {
-            return dirname(dirname(dirname(dirname(__DIR__))));
+            return dirname(__DIR__, 4);
         }
         return App::$APP_ROOT;
     }

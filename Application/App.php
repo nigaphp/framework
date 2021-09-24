@@ -101,7 +101,7 @@ class App
         echo $this->router->pathResolver();
     }
 
-    public function controllerRegister(array $controllers)
+    public function controllerLoader(array $controllers)
     {
 
         if (is_array($controllers)) {
