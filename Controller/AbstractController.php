@@ -17,7 +17,7 @@ use Nigatedev\FrameworkBundle\Application\Configuration as AppConfig;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class Controller
+abstract class AbstractController
 {
     
     /**
