@@ -36,6 +36,8 @@ class Configuration
     
     /**
      * Configuration of EntityManager
+     *
+     * @return mixed
      */
     public static function getEntityManagerConfig()
     {
@@ -55,16 +57,26 @@ class Configuration
         );
     }
     
+    /**
+     * @return mixed
+     */
     public static function getAppConfig()
     {
         return self::getParser("/config/app.json");
     }
     
+    /**
+     * @return mixed
+     */
     public static function getDefaultTemplateConfig()
     {
         return self::getAppConfig();
     }
     
+    /**
+     * @param string
+     * @return mixed
+     */
     private static function getParser($fileToParse)
     {
           return  JSONParser::parseJFile(self::getAppRoot(), $fileToParse);

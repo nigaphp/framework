@@ -49,7 +49,7 @@ class Router extends Debugger
     {
         $this->response = new Response();
         $this->request = new $request;
-        $this->diyan = new Diyan();
+        $this->diyan = new Diyan($this->request);
     }
 
     /**

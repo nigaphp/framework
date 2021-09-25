@@ -149,7 +149,7 @@ class DB
         if (strlen($driver) < 1) {
             throw new DBException("Fatal: not driver found for this configuration");
         } elseif (!in_array($driver, static::SUPPORTED_DRIVER)) {
-            throw new DBException(printf("Fatal: %s is not supposed as driver!", $driver));
+            throw new DBException("Fatal: $driver is not a supposed driver!");
         }
         return $driver;
     }

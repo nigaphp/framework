@@ -10,6 +10,7 @@ namespace Nigatedev\FrameworkBundle\Controller;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Nigatedev\FrameworkBundle\Application\App;
+use Nigatedev\FrameworkBundle\Http\Request;
 use Nigatedev\FrameworkBundle\Application\Configuration as AppConfig;
 
 /**
@@ -17,7 +18,7 @@ use Nigatedev\FrameworkBundle\Application\Configuration as AppConfig;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-abstract class AbstractController
+abstract class AbstractController extends Request
 {
     
     /**

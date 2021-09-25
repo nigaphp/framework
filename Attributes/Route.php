@@ -13,6 +13,8 @@ declare(strict_types = 1);
 
 namespace Nigatedev\FrameworkBundle\Attributes;
 
+use Nigatedev\FrameworkBundle\Http\Request;
+
 use Attribute;
 
 /**
@@ -30,10 +32,16 @@ class Route
      */
     private $path;
     
+    
+    /**
+     * @var Request
+     */
+    private $request;
+    
     /**
      * Route Attribute constructor
      *
-     * @param $path    The path, e.g: "/home"
+     * @param string $path    The path, (e.g: "/home")
      *
      * @return void
      */
@@ -49,6 +57,13 @@ class Route
      */
     public function getPath()
     {
-        return $this->path;
+    
+        if (preg_match("/\d+$/", $_SERVER["REQUEST_URI"], $id)) {
+            $_GET["id"] = $id[0];
+            $filterPath = preg_replace("/{id}/", $id[0], $this->path);
+        } else {
+            $filterPath = $this->path;
+        }
+        return $filterPath;
     }
 }

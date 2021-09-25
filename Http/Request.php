@@ -23,30 +23,42 @@ class Request
      * @var mixed $serverRequest
      */
     private $serverRequest;
-  
-    public function __construct()
+    
+    public static function fromGlobals()
     {
-        $this->serverRequest = ServerRequest::fromGlobals();
+        return ServerRequest::fromGlobals();
     }
+    
     /**
      * @return string
      */
     public function getMethod()
     {
-        return strtolower($this->serverRequest->getMethod());
+        return strtolower(self::fromGlobals()->getMethod());
     }
   
     /**
-     * @return string the path without ?
+     * @return string
      */
     public function getPath()
     {
-        $path = $this->serverRequest->getUri()->getPath() ?? "/";
-        $pos = strpos($path, "?");
+        $path = self::fromGlobals()->getUri()->getPath() ?? "/";
+        return $path;
+    }
     
-        if (!$pos) {
-            return $path;
-        }
-        return substr($path, 0, $pos);
+    /**
+     * @return array
+     */
+    public function getQueryParams()
+    {
+        return self::fromGlobals()->getQueryParams();
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function getId()
+    {
+        return $this->getQueryParams()["id"] ?? null;
     }
 }

@@ -83,7 +83,7 @@ class App
         $this->response = new Response();
         $this->debugger = new Debugger();
         $this->router = new Router($this->request);
-        $this->diyan = new Diyan();
+        $this->diyan = new Diyan($this->request);
         $this->db = new DB($configs["db"]);
     }
 
@@ -100,10 +100,16 @@ class App
         }
         echo $this->router->pathResolver();
     }
-
+    
+    /**
+     * Load all your controller
+     *
+     * @param array $controllers   array of controllers class as string[] including the full namespace
+     *
+     * @return void
+     */
     public function controllerLoader(array $controllers)
     {
-
         if (is_array($controllers)) {
             foreach ($controllers as $controller) {
                 $class = new ReflectionClass($controller);
