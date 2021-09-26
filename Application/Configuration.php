@@ -70,7 +70,7 @@ class Configuration
      */
     public static function getDefaultTemplateConfig()
     {
-        return self::getAppConfig();
+        return self::getAppConfig()["default_template"];
     }
     
     /**
