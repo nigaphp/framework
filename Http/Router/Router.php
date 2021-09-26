@@ -64,6 +64,17 @@ class Router extends Debugger
     }
     
     /**
+     * @param string $path
+     * @param mixed $callback
+     *
+     * @return void
+     */
+    public function post(string $path, $callback): void
+    {
+        $this->routes["post"][$path] = $callback;
+    }
+    
+    /**
      * @return void
      */
     public function load(string $callback)

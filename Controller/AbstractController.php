@@ -37,14 +37,14 @@ abstract class AbstractController extends Request
     
     /**
      * Construitor
-     * 
+     *
      * @return void
      */
-     public function __construct()
-     {
-         $this->response = new Response();
-         $this->diyan = new Diyan(new Request());
-     }
+    public function __construct()
+    {
+        $this->response = new Response();
+        $this->diyan = new Diyan(new Request());
+    }
      
     /**
      * @param string $view
@@ -56,23 +56,23 @@ abstract class AbstractController extends Request
     {
         $defaultTemplate = $this->getDefaultTemplate();
 
-            if ($defaultTemplate === "diyan") {
-                return $this->diyan->render($view, $params);
-            } else if($defaultTemplate === "twig") {
+        if ($defaultTemplate === "diyan") {
+            return $this->diyan->render($view, $params);
+        } elseif ($defaultTemplate === "twig") {
             $loader = new FilesystemLoader(AppConfig::getAppRoot()."/views");
             $twig = new Environment($loader, [
             'cache' => false,
             ]);
             $template = $twig->load("{$view}.twig");
             echo $template->render($params);
-            } else {
-                die("Bad template configuration");
-            }
-     }
+        } else {
+            die("Bad template configuration");
+        }
+    }
     
     /**
      * Redirect to not found template and set the status code to 404
-     * 
+     *
      * @return mixed
      */
     public function redirectToNotFound()

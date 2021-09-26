@@ -13,8 +13,6 @@ declare(strict_types = 1);
 
 namespace Nigatedev\FrameworkBundle\Attributes;
 
-use Nigatedev\FrameworkBundle\Http\Request;
-
 use Attribute;
 
 /**
@@ -32,22 +30,33 @@ class Route
      */
     private $path;
     
-    
     /**
-     * @var Request
+     * @var string
      */
-    private $request;
+    private $method;
     
     /**
      * Route Attribute constructor
      *
-     * @param string $path    The path, (e.g: "/home")
+     * @param string $path      The path, (e.g: "/home")
+     * @param string $method    The method "get|post|delete..."
      *
      * @return void
      */
-    public function __construct($path)
+    public function __construct($path, $method = "get")
     {
         $this->path = $path;
+        $this->method = $method;
+    }
+    
+    /**
+     * Get the method
+     *
+     * @return string
+     */
+    public function getMethod()
+    {
+        return strtolower($this->method);
     }
     
     /**
@@ -57,7 +66,6 @@ class Route
      */
     public function getPath()
     {
-    
         if (preg_match("/\d+$/", $_SERVER["REQUEST_URI"], $id)) {
             $_GET["id"] = $id[0];
             $filterPath = preg_replace("/{id}/", $id[0], $this->path);
