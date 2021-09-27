@@ -19,6 +19,14 @@ use GuzzleHttp\Psr7\ServerRequest;
  */
 class Request
 {
+    private $query = [];
+    /**
+     * Request constructor
+     */
+    public function __construct()
+    {
+    }
+    
     /**
      * @var mixed $serverRequest
      */
@@ -30,11 +38,29 @@ class Request
     }
     
     /**
+     * Get HTTP request method
      * @return string
      */
     public function getMethod()
     {
         return strtolower(self::fromGlobals()->getMethod());
+    }
+  
+    
+    /**
+     * @return string
+     */
+    public function isPost()
+    {
+        return $this->getMethod() === "post";
+    }
+    
+    /**
+     * @return string
+     */
+    public function isGet()
+    {
+        return $this->getMethod() === "get";
     }
   
     /**
@@ -60,5 +86,18 @@ class Request
     public function getId()
     {
         return $this->getQueryParams()["id"] ?? null;
+    }
+    
+    /**
+     * Get the name
+     *
+     * @return string
+     */
+    public function getRouteName($routeName)
+    {
+        $queryParams = array_unique($this->getQueryParams());
+        if (array_key_exists($routeName, $queryParams)) {
+            return $queryParams[$routeName];
+        }
     }
 }

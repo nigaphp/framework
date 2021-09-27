@@ -131,6 +131,6 @@ class Router extends Debugger
                 $callback[0] = new $callback[0];
             }
         }
-        echo call_user_func($callback);
+        echo call_user_func($callback, $this->request);
     }
 }

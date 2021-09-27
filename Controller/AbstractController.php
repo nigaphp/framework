@@ -23,7 +23,7 @@ use Nigatedev\FrameworkBundle\Application\Configuration as AppConfig;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-abstract class AbstractController extends Request
+abstract class AbstractController
 {
     /**
      * @var Response

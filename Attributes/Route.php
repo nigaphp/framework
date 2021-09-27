@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types = 1);
-
 /*
  * This file is part of the Nigatedev framework package.
  *
@@ -10,6 +7,8 @@ declare(strict_types = 1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types = 1);
 
 namespace Nigatedev\FrameworkBundle\Attributes;
 
@@ -24,7 +23,6 @@ use Attribute;
 #[Attribute]
 class Route
 {
-    
     /**
      * @var string
      */
@@ -36,17 +34,23 @@ class Route
     private $method;
     
     /**
+     * @var string
+     */
+    private $name;
+    
+    /**
      * Route Attribute constructor
      *
-     * @param string $path      The path, (e.g: "/home")
-     * @param string $method    The method "get|post|delete..."
+     * @param string $path      Request URL (e.g: https://example.com/about)
+     * @param string $method    HTTP request method (e.g: get|post|delete...)
      *
      * @return void
      */
-    public function __construct($path, $method = "get")
+    public function __construct($path, $name, $method = "get")
     {
         $this->path = $path;
         $this->method = $method;
+        $this->name = $name;
     }
     
     /**
@@ -72,6 +76,7 @@ class Route
         } else {
             $filterPath = $this->path;
         }
+        $_GET[$this->name] = $filterPath;
         return $filterPath;
     }
 }
