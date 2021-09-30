@@ -123,11 +123,8 @@ class App
 
                     foreach ($routeAttributes as $routeAttribute) {
                         $route = $routeAttribute->newInstance();
-                        if ($route->getMethod() === "post") {
                             self::$app->router->post($route->getPath(), [new $controller, $method->getName()]);
-                        } else {
                             self::$app->router->get($route->getPath(), [new $controller, $method->getName()]);
-                        }
                     }
                 }
             }

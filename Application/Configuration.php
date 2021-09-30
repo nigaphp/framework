@@ -11,6 +11,7 @@
 namespace Nigatedev\FrameworkBundle\Application;
 
 use Nigatedev\FrameworkBundle\Config\ORMConfig;
+use Nigatedev\FrameworkBundle\Http\Request;
 use Nigatedev\Framework\Parser\JSONParser;
 use Nigatedev\Framework\Parser\Exception\ParseException;
 
@@ -80,5 +81,16 @@ class Configuration
     private static function getParser($fileToParse)
     {
           return  JSONParser::parseJFile(self::getAppRoot(), $fileToParse);
+    }
+    
+    /**
+     *
+     */
+    public function getEnv(string $env)
+    {
+        if (!empty($env) && $env != " ") {
+            return (new Request())->getServerParams()[$env];
+        }
+        return (new Request())->getServerParams();
     }
 }

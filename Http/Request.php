@@ -89,6 +89,31 @@ class Request
     }
     
     /**
+     * @return ServerRequest|null
+     */
+    public function isSubmitted()
+    {
+        return $this->getQueryParams()["id"] ?? null;
+    }
+
+    /**
+     * @return ServerRequest|null
+     */
+    public function isGranted()
+    {
+        return $this->getQueryParams()["id"] ?? null;
+    }
+    
+
+    /**
+     * @return ServerRequest
+     */
+    public function getServerParams()
+    {
+        return self::fromGlobals()->getServerParams();
+    }
+    
+    /**
      * Get the name
      *
      * @return string
