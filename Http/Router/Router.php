@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+declare(strict_types = 1);
 
 namespace Nigatedev\FrameworkBundle\Http\Router;
 
@@ -15,7 +16,8 @@ use Nigatedev\FrameworkBundle\Http\Request;
 use Nigatedev\FrameworkBundle\Http\Response;
 use Nigatedev\FrameworkBundle\Http\HttpException;
 use Nigatedev\FrameworkBundle\Debugger\Debugger;
-
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Nigatedev\Diyan\Diyan;
 
 /**
@@ -26,16 +28,6 @@ use Nigatedev\Diyan\Diyan;
 class Router extends Debugger
 {
     /**
-     * @var Request
-     */
-    private Request $request;
-
-    /**
-     * @var Response instance
-     */
-    private Response $response;
-
-    /**
      * @var Diyan instance
      */
     public Diyan $diyan;
@@ -44,13 +36,6 @@ class Router extends Debugger
      * @var array[] $routes
      */
     protected $routes = [];
-
-    public function __construct(Request $request)
-    {
-        $this->response = new Response();
-        $this->request = new $request;
-        $this->diyan = new Diyan($this->request);
-    }
 
     /**
      * @param string $path
@@ -75,6 +60,8 @@ class Router extends Debugger
     }
     
     /**
+     * @var string $callback
+     *
      * @return void
      */
     public function load(string $callback)
@@ -87,50 +74,41 @@ class Router extends Debugger
     }
 
     /**
+     * Resole the path/url
+     *
      * @throws HttpException
      *
-     * @return mixed
+     * @return ResponseInterface
      */
-    public function pathResolver()
+    public function pathResolver(ServerRequestInterface $req): ResponseInterface
     {
-        $method = $this->request->getMethod();
-        $path = $this->request->getPath();
-
+        $this->diyan = new Diyan();
+        $method = strtolower($req->getMethod());
+        $path = $req->getUri()->getPath() ?? "/";
+        
+        if ($path != "/" && $path[-1] === "/") {
+            return new Response(301, ["Location" => substr($path, 0, -1)]);
+        }
+        
         $callback = $this->routes[$method][$path] ?? false;
 
-
-        if (is_string($callback)) {
-            return $this->diyan->render($callback);
-        }
-
-        if ($path === "/") {
-            $home = isset($this->routes[$method]["/"]) ?? false;
-            if (!$home) {
-                $this->response->setStatusCode(404);
-                if ($this->getDebugMode()) {
-                    $this->diyan->setBody($this->diyan->getHomeNotFound());
-                } else {
-                    $this->diyan->setBody($this->diyan->getNotFound());
-                }
-                return $this->diyan->render(null, []);
-            }
-        }
-
         if ($callback === false) {
-            $this->response->setStatusCode(404);
             $this->diyan->setBody($this->diyan->getNotFound());
-            return $this->diyan->render(null, []);
+            return new Response(404, [], $this->diyan->render(null, []));
+        }
+        
+        if (is_string($callback)) {
+            return new Response(200, [], $this->diyan->render($callback));
         }
 
         if (is_array($callback)) {
             if (!class_exists($callback[0]::class)) {
-                $this->response->setStatusCode(404);
                 $this->diyan->setBody($this->diyan->getNotFound());
-                return $this->diyan->render(null, []);
+                return new Response(404, [], $this->diyan->render(null, []));
             } else {
                 $callback[0] = new $callback[0];
             }
         }
-        echo call_user_func($callback, $this->request);
+        return new Response(200, [], call_user_func($callback, $req));
     }
 }

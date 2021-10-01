@@ -18,6 +18,8 @@ use Nigatedev\FrameworkBundle\Http\Router\Router;
 use Nigatedev\FrameworkBundle\Debugger\Debugger;
 use Nigatedev\FrameworkBundle\Config\Configurator;
 use Nigatedev\FrameworkBundle\Database\DB;
+use Psr\Http\Message\ServerRequestInterface;
+use Nigatedev\FrameworkBundle\Attributes\Route;
 use ReflectionClass;
 
 /**
@@ -33,26 +35,16 @@ class App
     */
     public static App $app;
 
-
     /**
     * @var string $APP_ROOT
     */
     public static $APP_ROOT;
 
     /**
-    * @var Diyan
-    */
-    public Diyan $diyan;
-    /**
     * @var Response
     */
     public Response $response;
-
-    /**
-    * @var Request
-    */
-    public Request $request;
-
+    
     /**
     * @var Router
     */
@@ -79,11 +71,9 @@ class App
     {
         self::$APP_ROOT = $appRoot;
         self::$app = $this;
-        $this->request = new Request();
         $this->response = new Response();
         $this->debugger = new Debugger();
-        $this->router = new Router($this->request);
-        $this->diyan = new Diyan($this->request);
+        $this->router = new Router();
         $this->db = new DB($configs["db"]);
     }
 
@@ -92,13 +82,10 @@ class App
     *
     * @return void
     */
-    public function run(): void
+    public function run(ServerRequestInterface $req)
     {
-        if (version_compare(Configurator::CURRENT_VERSION, PHP_VERSION, "<")) {
-            $message = (string)printf("Fatal: Your are using PHP version %s which is not enough to run Nigatedev app... minimum is %s", Configurator::CURRENT_VERSION, PHP_VERSION);
-            throw new AppException($message);
-        }
-        echo $this->router->pathResolver();
+        $res = $this->router->pathResolver($req);
+        $this->response->send($res);
     }
     
     /**
@@ -115,7 +102,7 @@ class App
                 $class = new ReflectionClass($controller);
 
                 foreach ($class->getMethods() as $method) {
-                    $routeAttributes = $method->getAttributes(\Nigatedev\FrameworkBundle\Attributes\Route::class);
+                    $routeAttributes = $method->getAttributes(Route::class);
 
                     if (empty($routeAttributes)) {
                         continue;

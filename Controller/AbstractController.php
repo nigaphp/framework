@@ -16,7 +16,7 @@ use Nigatedev\FrameworkBundle\Application\App;
 use Nigatedev\FrameworkBundle\Http\Request;
 use Nigatedev\FrameworkBundle\Http\Response;
 use Nigatedev\Diyan\Diyan;
-use Nigatedev\FrameworkBundle\Application\Configuration as AppConfig;
+use Nigatedev\FrameworkBundle\Application\Configuration;
 
 /**
  * Main abstract controller
@@ -43,7 +43,7 @@ abstract class AbstractController
     public function __construct()
     {
         $this->response = new Response();
-        $this->diyan = new Diyan(new Request());
+        $this->diyan = new Diyan();
     }
      
     /**
@@ -59,7 +59,7 @@ abstract class AbstractController
         if ($defaultTemplate === "diyan") {
             return $this->diyan->render($view, $params);
         } elseif ($defaultTemplate === "twig") {
-            $loader = new FilesystemLoader(AppConfig::getAppRoot()."/views");
+            $loader = new FilesystemLoader(Configuration::getAppRoot()."/views");
             $twig = new Environment($loader, [
             'cache' => false,
             ]);
@@ -77,10 +77,9 @@ abstract class AbstractController
      */
     public function redirectToNotFound()
     {
-        $this->response->setStatusCode(404);
         $notFound = $this->diyan->getNotFound();
         $this->diyan->setBody($notFound);
-        return $this->diyan->render(null, []);
+        return new Response(404, [], $this->diyan->render(null, []));
     }
     
     /**
@@ -88,7 +87,7 @@ abstract class AbstractController
      */
     public function getEntityManager()
     {
-        return AppConfig::getEntityManagerConfig();
+        return Configuration::getEntityManagerConfig();
     }
     
     /**
@@ -96,6 +95,6 @@ abstract class AbstractController
      */
     public function getDefaultTemplate()
     {
-        return AppConfig::getDefaultTemplateConfig();
+        return Configuration::getDefaultTemplateConfig();
     }
 }

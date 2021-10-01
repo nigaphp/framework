@@ -7,27 +7,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+declare(strict_types = 1);
 
 namespace Nigatedev\FrameworkBundle\Http;
 
-use GuzzleHttp\Psr7\Response as serverResponse;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Psr7\Response as GuzzleResponse;
+use function Http\Response\send;
 
 /**
  * Response class
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class Response extends serverResponse
+class Response extends GuzzleResponse implements ResponseInterface
 {
-    /**
-     * Set header code status
-     *
-     * @avr int|bool $code
-     *
-     * @return int|bool new status code
-     */
-    public function setStatusCode(int $code)
+    public function send($stream)
     {
-        return http_response_code($code);
+        return send($stream);
     }
 }

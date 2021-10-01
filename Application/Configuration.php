@@ -88,9 +88,6 @@ class Configuration
      */
     public function getEnv(string $env)
     {
-        if (!empty($env) && $env != " ") {
-            return (new Request())->getServerParams()[$env];
-        }
-        return (new Request())->getServerParams();
+        return Request::fromGlobals()->getServerParams()[$env];
     }
 }

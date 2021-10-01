@@ -7,9 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+declare(strict_types = 1);
 
 namespace Nigatedev\FrameworkBundle\Http;
 
+use Psr\Http\Message\ServerRequestInterface;
 use GuzzleHttp\Psr7\ServerRequest;
 
 /**
@@ -17,36 +19,18 @@ use GuzzleHttp\Psr7\ServerRequest;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class Request
+class Request extends ServerRequest implements ServerRequestInterface
 {
-    private $query = [];
-    /**
-     * Request constructor
-     */
-    public function __construct()
-    {
+    public function __construct(
+        string $method,
+        $uri,
+        array $headers = [],
+        $body = null,
+        string $version = '1.1',
+        array $serverParams = []
+    ) {
+        parent::__construct($method, $uri, $headers, $body, $version, $serverParams);
     }
-    
-    /**
-     * @var mixed $serverRequest
-     */
-    private $serverRequest;
-    
-    public static function fromGlobals()
-    {
-        return ServerRequest::fromGlobals();
-    }
-    
-    /**
-     * Get HTTP request method
-     * @return string
-     */
-    public function getMethod()
-    {
-        return strtolower(self::fromGlobals()->getMethod());
-    }
-  
-    
     /**
      * @return string
      */
@@ -63,23 +47,6 @@ class Request
         return $this->getMethod() === "get";
     }
   
-    /**
-     * @return string
-     */
-    public function getPath()
-    {
-        $path = self::fromGlobals()->getUri()->getPath() ?? "/";
-        return $path;
-    }
-    
-    /**
-     * @return array
-     */
-    public function getQueryParams()
-    {
-        return self::fromGlobals()->getQueryParams();
-    }
-    
     /**
      * @return string|null
      */
@@ -103,16 +70,7 @@ class Request
     {
         return $this->getQueryParams()["id"] ?? null;
     }
-    
 
-    /**
-     * @return ServerRequest
-     */
-    public function getServerParams()
-    {
-        return self::fromGlobals()->getServerParams();
-    }
-    
     /**
      * Get the name
      *
