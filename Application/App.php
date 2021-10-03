@@ -39,11 +39,6 @@ class App
     * @var string $APP_ROOT
     */
     public static $APP_ROOT;
-
-    /**
-    * @var Response
-    */
-    public Response $response;
     
     /**
     * @var Router
@@ -54,7 +49,6 @@ class App
     * @var Debugger
     */
     public Debugger $debugger;
-
 
     /**
     * @var DB
@@ -71,7 +65,6 @@ class App
     {
         self::$APP_ROOT = $appRoot;
         self::$app = $this;
-        $this->response = new Response();
         $this->debugger = new Debugger();
         $this->router = new Router();
         $this->db = new DB($configs["db"]);
@@ -84,8 +77,8 @@ class App
     */
     public function run(ServerRequestInterface $req)
     {
-        $res = $this->router->pathResolver($req);
-        $this->response->send($res);
+        $stream = $this->router->pathResolver($req);
+        Response::send($stream);
     }
     
     /**
@@ -100,18 +93,20 @@ class App
         if (is_array($controllers)) {
             foreach ($controllers as $controller) {
                 $class = new ReflectionClass($controller);
-
                 foreach ($class->getMethods() as $method) {
                     $routeAttributes = $method->getAttributes(Route::class);
-
-                    if (empty($routeAttributes)) {
-                        continue;
-                    }
-
                     foreach ($routeAttributes as $routeAttribute) {
                         $route = $routeAttribute->newInstance();
-                            self::$app->router->post($route->getPath(), [new $controller, $method->getName()]);
-                            self::$app->router->get($route->getPath(), [new $controller, $method->getName()]);
+                        if ($route->getMethod() === "post") {
+                            $this->router->post($route->getPath(), [new $controller, $method->getName()]);
+                        } elseif ($route->getMethod() === "get") {
+                            $this->router->get($route->getPath(), [new $controller, $method->getName()]);
+                        } elseif ($route->getMethod() === "get|post") {
+                            $this->router->post($route->getPath(), [new $controller, $method->getName()]);
+                            $this->router->get($route->getPath(), [new $controller, $method->getName()]);
+                        } else {
+                            $this->router->get($route->getPath(), [new $controller, $method->getName()]);
+                        }
                     }
                 }
             }

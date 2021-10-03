@@ -15,7 +15,6 @@ use Nigatedev\FrameworkBundle\Application\App;
 use Nigatedev\FrameworkBundle\Http\Request;
 use Nigatedev\FrameworkBundle\Http\Response;
 use Nigatedev\FrameworkBundle\Http\HttpException;
-use Nigatedev\FrameworkBundle\Debugger\Debugger;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Nigatedev\Diyan\Diyan;
@@ -25,7 +24,7 @@ use Nigatedev\Diyan\Diyan;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class Router extends Debugger
+class Router
 {
     /**
      * @var Diyan instance
@@ -66,8 +65,6 @@ class Router extends Debugger
      */
     public function load(string $callback)
     {
-        $callback = require_once($callback);
-      
         foreach ($callback as $key => $value) {
             $this->routes["get"][$key] = $value;
         }
@@ -80,17 +77,10 @@ class Router extends Debugger
      *
      * @return ResponseInterface
      */
-    public function pathResolver(ServerRequestInterface $req): ResponseInterface
+    public function pathResolver(ServerRequestInterface $req)
     {
         $this->diyan = new Diyan();
-        $method = strtolower($req->getMethod());
-        $path = $req->getUri()->getPath() ?? "/";
-        
-        if ($path != "/" && $path[-1] === "/") {
-            return new Response(301, ["Location" => substr($path, 0, -1)]);
-        }
-        
-        $callback = $this->routes[$method][$path] ?? false;
+        $callback = $this->routes[\strtolower($req->getMethod())][$req->getUri()->getPath()] ?? false;
 
         if ($callback === false) {
             return new Response(404, [], $this->diyan->render("errors/_404"));
@@ -107,6 +97,10 @@ class Router extends Debugger
                 $callback[0] = new $callback[0];
             }
         }
-        return new Response(200, [], call_user_func($callback, $req));
+        
+        ob_start();
+        echo call_user_func($callback, $req);
+        $stream = ob_get_clean();
+        return new Response(200, [], $stream);
     }
 }

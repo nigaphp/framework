@@ -22,7 +22,7 @@ use function Http\Response\send;
  */
 class Response extends GuzzleResponse implements ResponseInterface
 {
-    public function send($stream)
+    public static function send($stream)
     {
         return send($stream);
     }
