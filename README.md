@@ -1,2 +1,1 @@
-# framework-bundle
-Nigatedev framework bundle
+# Nigatedev framework bundle
