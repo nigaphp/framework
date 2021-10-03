@@ -13,8 +13,8 @@ namespace Nigatedev\FrameworkBundle\Controller;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Nigatedev\FrameworkBundle\Application\App;
-use Nigatedev\FrameworkBundle\Http\Request;
 use Nigatedev\FrameworkBundle\Http\Response;
+use Nigatedev\FrameworkBundle\Controller\Exception\ControllerException;
 use Nigatedev\Diyan\Diyan;
 use Nigatedev\FrameworkBundle\Application\Configuration;
 
@@ -25,11 +25,6 @@ use Nigatedev\FrameworkBundle\Application\Configuration;
  */
 abstract class AbstractController
 {
-    /**
-     * @var Response
-     */
-    protected $response;
-    
     /**
      * @var Diyan
      */
@@ -42,7 +37,6 @@ abstract class AbstractController
      */
     public function __construct()
     {
-        $this->response = new Response();
         $this->diyan = new Diyan();
     }
      
@@ -64,9 +58,9 @@ abstract class AbstractController
             'cache' => false,
             ]);
             $template = $twig->load("{$view}.twig");
-            echo $template->render($params);
+            return $template->render($params);
         } else {
-            die("Bad template configuration");
+            throw new ControllerException("Bad template configuration!");
         }
     }
     
@@ -77,9 +71,7 @@ abstract class AbstractController
      */
     public function redirectToNotFound()
     {
-        $notFound = $this->diyan->getNotFound();
-        $this->diyan->setBody($notFound);
-        return new Response(404, [], $this->diyan->render(null, []));
+        return new Response(404, [], $this->diyan->render("errors/_404", []));
     }
     
     /**

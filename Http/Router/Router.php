@@ -93,8 +93,7 @@ class Router extends Debugger
         $callback = $this->routes[$method][$path] ?? false;
 
         if ($callback === false) {
-            $this->diyan->setBody($this->diyan->getNotFound());
-            return new Response(404, [], $this->diyan->render(null, []));
+            return new Response(404, [], $this->diyan->render("errors/_404"));
         }
         
         if (is_string($callback)) {
@@ -103,8 +102,7 @@ class Router extends Debugger
 
         if (is_array($callback)) {
             if (!class_exists($callback[0]::class)) {
-                $this->diyan->setBody($this->diyan->getNotFound());
-                return new Response(404, [], $this->diyan->render(null, []));
+                return new Response(404, [], $this->diyan->render("errors/_404"));
             } else {
                 $callback[0] = new $callback[0];
             }
