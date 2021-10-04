@@ -19,24 +19,14 @@ use GuzzleHttp\Psr7\ServerRequest;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class Request extends ServerRequest implements ServerRequestInterface
+class Request 
 {
-    public function __construct(
-        string $method,
-        $uri,
-        array $headers = [],
-        $body = null,
-        string $version = '1.1',
-        array $serverParams = []
-    ) {
-        parent::__construct($method, $uri, $headers, $body, $version, $serverParams);
-    }
     /**
      * @return string
      */
     public function isPost()
     {
-        return $this->getMethod() === "post";
+        return $this->fromGbl()->getMethod() === "POST";
     }
     
     /**
@@ -44,31 +34,24 @@ class Request extends ServerRequest implements ServerRequestInterface
      */
     public function isGet()
     {
-        return $this->getMethod() === "get";
+        return $this->fromGbl()->getMethod() === "GET";
     }
   
-    /**
-     * @return string|null
-     */
-    public function getId()
+    public function getBody()
     {
-        return $this->getQueryParams()["id"] ?? null;
-    }
-    
-    /**
-     * @return ServerRequest|null
-     */
-    public function isSubmitted()
-    {
-        return $this->getQueryParams()["id"] ?? null;
-    }
-
-    /**
-     * @return ServerRequest|null
-     */
-    public function isGranted()
-    {
-        return $this->getQueryParams()["id"] ?? null;
+        $body = [];
+        if ($this->isGet()) {
+            foreach ($this->fromGbl()->getParsedBody() as $key => $value) {
+               $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS) ;
+            }
+        }
+        
+        if ($this->isPost()) {
+            foreach ($this->fromGbl()->getParsedBody() as $key => $value) {
+               $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS) ;
+            }
+        }
+        return $body;
     }
 
     /**
@@ -78,9 +61,14 @@ class Request extends ServerRequest implements ServerRequestInterface
      */
     public function getRouteName($routeName)
     {
-        $queryParams = array_unique($this->getQueryParams());
+        $queryParams = array_unique($this->fromGbl());
         if (array_key_exists($routeName, $queryParams)) {
             return $queryParams[$routeName];
         }
+    }
+    
+    public function fromGbl()
+    {
+        return ServerRequest::fromGlobals();
     }
 }
