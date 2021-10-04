@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 use Nigatedev\FrameworkBundle\Application\App;
-use Nigatedev\FrameworkBundle\Http\Request;
+use GuzzleHttp\Psr7\ServerRequest as Request;
 use Nigatedev\FrameworkBundle\Http\Response;
 use Nigatedev\Diyan\Diyan;
 
