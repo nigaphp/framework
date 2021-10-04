@@ -12,9 +12,9 @@ declare(strict_types = 1);
 namespace Nigatedev\FrameworkBundle\Http\Router;
 
 use Nigatedev\FrameworkBundle\Application\App;
-use Nigatedev\FrameworkBundle\Http\Request;
-use Nigatedev\FrameworkBundle\Http\Response;
+use GuzzleHttp\Psr7\Response;
 use Nigatedev\FrameworkBundle\Http\HttpException;
+use Nigatedev\FrameworkBundle\Http\Request;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Nigatedev\Diyan\Diyan;
@@ -80,7 +80,12 @@ class Router
     public function pathResolver(ServerRequestInterface $req)
     {
         $this->diyan = new Diyan();
-        $callback = $this->routes[\strtolower($req->getMethod())][$req->getUri()->getPath()] ?? false;
+        $method = $req->getMethod();
+        $url = $req->getUri()->getPath() ?? "/";
+        if (strlen($url) > 1 && $url[-1] === "/") {
+            return new Response(301, ["Location" => substr($url, 0, -1)]);
+        }
+        $callback = $this->routes[\strtolower($method)][$url] ?? false;
 
         if ($callback === false) {
             return new Response(404, [], $this->diyan->render("errors/_404"));
@@ -99,7 +104,7 @@ class Router
         }
         
         ob_start();
-        echo call_user_func($callback, $req);
+        echo call_user_func($callback, (new Request));
         $stream = ob_get_clean();
         return new Response(200, [], $stream);
     }
