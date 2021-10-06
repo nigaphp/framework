@@ -12,21 +12,33 @@ declare(strict_types = 1);
 namespace Nigatedev\FrameworkBundle\Http;
 
 use Psr\Http\Message\ServerRequestInterface;
-use GuzzleHttp\Psr7\ServerRequest;
 
 /**
  * HTTP request
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class Request 
+class Request
 {
+    /**
+     * @var ServerRequestInterface $request
+     */
+     private $request;
+     
+    /**
+     * @param ServerRequestInterface $request
+     */
+    public function __construct(ServerRequestInterface $request)
+    {
+        $this->request = $request;
+    }
+    
     /**
      * @return string
      */
     public function isPost()
     {
-        return $this->fromGbl()->getMethod() === "POST";
+        return $this->request->getMethod() === "POST";
     }
     
     /**
@@ -34,21 +46,21 @@ class Request
      */
     public function isGet()
     {
-        return $this->fromGbl()->getMethod() === "GET";
+        return $this->fromGlobals()->getMethod() === "GET";
     }
   
     public function getBody()
     {
         $body = [];
         if ($this->isGet()) {
-            foreach ($this->fromGbl()->getParsedBody() as $key => $value) {
-               $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS) ;
+            foreach ($this->fromGlobals()->getParsedBody() as $key => $value) {
+                $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS) ;
             }
         }
         
         if ($this->isPost()) {
-            foreach ($this->fromGbl()->getParsedBody() as $key => $value) {
-               $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS) ;
+            foreach ($this->fromGlobals()->getParsedBody() as $key => $value) {
+                $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS) ;
             }
         }
         return $body;
@@ -61,14 +73,14 @@ class Request
      */
     public function getRouteName($routeName)
     {
-        $queryParams = array_unique($this->fromGbl());
+        $queryParams = array_unique($this->fromGlobals());
         if (array_key_exists($routeName, $queryParams)) {
             return $queryParams[$routeName];
         }
     }
     
-    public function fromGbl()
+    public function fromGlobals()
     {
-        return ServerRequest::fromGlobals();
+        return $this->request;
     }
 }

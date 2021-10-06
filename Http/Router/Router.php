@@ -35,7 +35,15 @@ class Router
      * @var array[] $routes
      */
     protected $routes = [];
-
+    
+    /**
+     * @param ServerRequestInterface $request
+     */
+    public function __construct(ServerRequestInterface $request)
+    {
+        $this->diyan = new Diyan($request);
+    }
+    
     /**
      * @param string $path
      * @param mixed $callback
@@ -77,11 +85,11 @@ class Router
      *
      * @return ResponseInterface
      */
-    public function pathResolver(ServerRequestInterface $req)
+    public function pathResolver(ServerRequestInterface $request): ResponseInterface
     {
-        $this->diyan = new Diyan();
-        $method = $req->getMethod();
-        $url = $req->getUri()->getPath() ?? "/";
+        $method = $request->getMethod();
+        $url = $request->getUri()->getPath() ?? "/";
+        
         if (strlen($url) > 1 && $url[-1] === "/") {
             return new Response(301, ["Location" => substr($url, 0, -1)]);
         }
@@ -104,7 +112,7 @@ class Router
         }
         
         ob_start();
-        echo call_user_func($callback, (new Request));
+        echo call_user_func($callback, App::$app->request);
         $stream = ob_get_clean();
         return new Response(200, [], $stream);
     }

@@ -7,36 +7,34 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+declare(strict_types = 1);
 
 namespace Nigatedev\FrameworkBundle\Application;
 
 use Nigatedev\Diyan\Diyan;
-
 use Nigatedev\FrameworkBundle\Http\Request;
 use Nigatedev\FrameworkBundle\Http\Response;
 use Nigatedev\FrameworkBundle\Http\Router\Router;
 use Nigatedev\FrameworkBundle\Debugger\Debugger;
-use Nigatedev\FrameworkBundle\Config\Configurator;
 use Nigatedev\FrameworkBundle\Database\DB;
 use Psr\Http\Message\ServerRequestInterface;
 use Nigatedev\FrameworkBundle\Attributes\Route;
 use ReflectionClass;
 
 /**
-* The Nigatedev PHP framework main core application class
+* Main application class
 *
 * @author Abass Ben Cheik <abass@todaysdev.com>
 */
 class App
 {
-
     /**
     * @var App
     */
     public static App $app;
 
     /**
-    * @var string $APP_ROOT
+    * @var string
     */
     public static $APP_ROOT;
     
@@ -44,6 +42,16 @@ class App
     * @var Router
     */
     public Router $router;
+    
+    /**
+    * @var Request
+    */
+    public Request $request;
+    
+    /**
+    * @var ServerRequestInterface
+    */
+    public ServerRequestInterface $serverRequest;
 
     /**
     * @var Debugger
@@ -58,58 +66,69 @@ class App
     /**
     * App constructor
     *
+    * @param ServerRequestInterface $serverRequest
     * @param string $appRoot
-    * @param array[] $configs
-    */
-    public function __construct(string $appRoot, array $configs)
-    {
-        self::$APP_ROOT = $appRoot;
-        self::$app = $this;
-        $this->debugger = new Debugger();
-        $this->router = new Router();
-        $this->db = new DB($configs["db"]);
-    }
-
-    /**
-    * @throws AppException
+    * @param array[] $config
     *
     * @return void
     */
-    public function run(ServerRequestInterface $req)
+    public function __construct(ServerRequestInterface $serverRequest, string $appRoot, array $config)
     {
-        $stream = $this->router->pathResolver($req);
-        Response::send($stream);
+        self::$APP_ROOT = $appRoot;
+        self::$app = $this;
+        $this->serverRequest = $serverRequest;
+        (new Configuration($this->serverRequest));
+        $this->request = new Request($this->serverRequest);
+        $this->router = new Router($this->serverRequest);
+        $this->debugger = new Debugger();
+        $this->db = new DB($config["db"]);
     }
     
     /**
      * Load all your controller
      *
-     * @param array $controllers   array of controllers class as string[] including the full namespace
-     *
+     * @param string[] $controllers   array of controllers class as string[] including the full namespace
      * @return void
      */
-    public function controllerLoader(array $controllers)
+    public function routesLoader(array $controllers)
     {
         if (is_array($controllers)) {
             foreach ($controllers as $controller) {
-                $class = new ReflectionClass($controller);
+                $class = new ReflectionClass((new $controller));
                 foreach ($class->getMethods() as $method) {
                     $routeAttributes = $method->getAttributes(Route::class);
                     foreach ($routeAttributes as $routeAttribute) {
                         $route = $routeAttribute->newInstance();
-                        if ($route->getMethod() === "post") {
-                            $this->router->post($route->getPath(), [new $controller, $method->getName()]);
-                        } elseif ($route->getMethod() === "get") {
-                            $this->router->get($route->getPath(), [new $controller, $method->getName()]);
-                        } elseif ($route->getMethod() === "get|post") {
-                            $this->router->post($route->getPath(), [new $controller, $method->getName()]);
-                            $this->router->get($route->getPath(), [new $controller, $method->getName()]);
-                        } else {
-                            $this->router->get($route->getPath(), [new $controller, $method->getName()]);
+                        switch ($route->getMethod()) {
+                            case 'post':
+                                $this->router->post($route->getPath(), [new $controller, $method->getName()]);
+                                break;
+                            case 'get':
+                                $this->router->get($route->getPath(), [new $controller, $method->getName()]);
+                                break;
+                            case 'get|post':
+                                $this->router->post($route->getPath(), [new $controller, $method->getName()]);
+                                $this->router->get($route->getPath(), [new $controller, $method->getName()]);
+                                break;
+                            default:
+                                $this->router->get($route->getPath(), [new $controller, $method->getName()]);
+                                break;
                         }
                     }
                 }
             }
         }
+    }
+
+   /**
+    * App runner
+    * @throws AppException
+    *
+    * @return void
+    */
+    public function run()
+    {
+        $stream = $this->router->pathResolver($this->serverRequest);
+        Response::send($stream);
     }
 }

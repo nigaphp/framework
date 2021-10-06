@@ -14,6 +14,7 @@ use Nigatedev\FrameworkBundle\Config\ORMConfig;
 use GuzzleHttp\Psr7\ServerRequest;
 use Nigatedev\Framework\Parser\JSONParser;
 use Nigatedev\Framework\Parser\Exception\ParseException;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
 * Application configuration
@@ -22,6 +23,26 @@ use Nigatedev\Framework\Parser\Exception\ParseException;
 */
 class Configuration
 {
+    /**
+     * @var ServerRequestInterface
+     */
+    public ServerRequestInterface $request;
+    
+    /**
+     * @var string[]
+     */
+    public static array $envs = [];
+    
+    /**
+     * @param ServerRequestInterface $request
+     * @return void
+     */
+    public function __construct(ServerRequestInterface $request)
+    {
+        $this->request = $request;
+        self::$envs = $this->request->getServerParams();
+    }
+    
     /**
      * Define the application document root
      *
@@ -36,7 +57,7 @@ class Configuration
     }
     
     /**
-     * Configuration of EntityManager
+     * Get doctrine orm entityManager
      *
      * @return mixed
      */
@@ -59,6 +80,7 @@ class Configuration
     }
     
     /**
+     * Application configuration.
      * @return mixed
      */
     public static function getAppConfig()
@@ -67,6 +89,7 @@ class Configuration
     }
     
     /**
+     * The default template
      * @return mixed
      */
     public static function getDefaultTemplateConfig()
@@ -75,19 +98,22 @@ class Configuration
     }
     
     /**
-     * @param string
+     * Get json parser
+     *
+     * @param string $fileToParse     path to the file
      * @return mixed
      */
-    private static function getParser($fileToParse)
+    private static function getParser(string $fileToParse)
     {
           return  JSONParser::parseJFile(self::getAppRoot(), $fileToParse);
     }
     
     /**
-     *
+     * @pram string $envKey
+     * @return string[]|null
      */
-    public function getEnv(string $env)
+    public static function getEnv(string $envKey)
     {
-        return ServerRequest::fromGlobals()->getServerParams()[$env];
+        return self::$envs;
     }
 }

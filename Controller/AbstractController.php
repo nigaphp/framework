@@ -24,7 +24,7 @@ use Nigatedev\FrameworkBundle\Application\Configuration;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-abstract class AbstractController extends Request
+abstract class AbstractController
 {
     /**
      * @var Diyan
@@ -38,7 +38,7 @@ abstract class AbstractController extends Request
      */
     public function __construct()
     {
-        $this->diyan = new Diyan();
+        $this->diyan = App::$app->router->diyan;
     }
      
     /**
