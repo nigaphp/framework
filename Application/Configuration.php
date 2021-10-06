@@ -11,7 +11,7 @@
 namespace Nigatedev\FrameworkBundle\Application;
 
 use Nigatedev\FrameworkBundle\Config\ORMConfig;
-use Nigatedev\FrameworkBundle\Http\Request;
+use GuzzleHttp\Psr7\ServerRequest;
 use Nigatedev\Framework\Parser\JSONParser;
 use Nigatedev\Framework\Parser\Exception\ParseException;
 
@@ -88,6 +88,6 @@ class Configuration
      */
     public function getEnv(string $env)
     {
-        return Request::fromGlobals()->getServerParams()[$env];
+        return ServerRequest::fromGlobals()->getServerParams()[$env];
     }
 }

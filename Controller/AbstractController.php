@@ -14,6 +14,7 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Nigatedev\FrameworkBundle\Application\App;
 use Nigatedev\FrameworkBundle\Http\Response;
+use Nigatedev\FrameworkBundle\Http\Request;
 use Nigatedev\FrameworkBundle\Controller\Exception\ControllerException;
 use Nigatedev\Diyan\Diyan;
 use Nigatedev\FrameworkBundle\Application\Configuration;
@@ -23,7 +24,7 @@ use Nigatedev\FrameworkBundle\Application\Configuration;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-abstract class AbstractController
+abstract class AbstractController extends Request
 {
     /**
      * @var Diyan
