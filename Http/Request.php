@@ -26,6 +26,8 @@ class Request
      private $request;
      
     /**
+     * Request constructor
+     *
      * @param ServerRequestInterface $request
      */
     public function __construct(ServerRequestInterface $request)
@@ -34,7 +36,7 @@ class Request
     }
     
     /**
-     * @return string
+     * @return bool
      */
     public function isPost()
     {
@@ -42,24 +44,30 @@ class Request
     }
     
     /**
-     * @return string
+     * @return bool
      */
     public function isGet()
     {
-        return $this->fromGlobals()->getMethod() === "GET";
+        return $this->request->getMethod() === "GET";
     }
   
+    
+    /**
+     * Sanitize globals variables $_POST and $_GET
+     *
+     * @return mixed
+     */
     public function getBody()
     {
         $body = [];
         if ($this->isGet()) {
-            foreach ($this->fromGlobals()->getParsedBody() as $key => $value) {
+            foreach ($this->request->getParsedBody() as $key => $value) {
                 $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS) ;
             }
         }
         
         if ($this->isPost()) {
-            foreach ($this->fromGlobals()->getParsedBody() as $key => $value) {
+            foreach ($this->request->getParsedBody() as $key => $value) {
                 $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS) ;
             }
         }
@@ -67,18 +75,23 @@ class Request
     }
 
     /**
-     * Get the name
+     * Get route name
      *
      * @return string
      */
-    public function getRouteName($routeName)
+    public function getRouteName(string $routeName)
     {
-        $queryParams = array_unique($this->fromGlobals());
+        $queryParams = array_unique($this->request);
         if (array_key_exists($routeName, $queryParams)) {
             return $queryParams[$routeName];
         }
     }
     
+    /**
+     * All globals variables $_POST,$_GET...
+     *
+     * @return ServerRequestInterface
+     */
     public function fromGlobals()
     {
         return $this->request;
