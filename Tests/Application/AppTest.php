@@ -4,7 +4,7 @@ use Nigatedev\FrameworkBundle\Application\App;
 use GuzzleHttp\Psr7\ServerRequest as Request;
 use Nigatedev\FrameworkBundle\Http\Response;
 
-class ApplicationTest extends TestCase
+class AppTest extends TestCase
 {
     
     public function setUp(): void
