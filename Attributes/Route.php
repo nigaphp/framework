@@ -12,6 +12,7 @@ declare(strict_types = 1);
 namespace Nigatedev\FrameworkBundle\Attributes;
 
 use Attribute;
+use Nigatedev\FrameworkBundle\Application\Configuration as Config;
 
 /**
 * Route Attribute
@@ -70,7 +71,7 @@ class Route
      */
     public function getPath()
     {
-        if (preg_match("/\d+$/", $_SERVER["REQUEST_URI"], $id)) {
+        if (preg_match("/\d+$/", Config::getEnv("REQUEST_URI"), $id)) {
             $_GET["id"] = $id[0];
             $filterPath = preg_replace("/{id}/", $id[0], $this->path);
         } else {
