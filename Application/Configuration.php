@@ -114,6 +114,6 @@ class Configuration
      */
     public static function getEnv(string $envKey)
     {
-        return self::$envs;
+        return self::$envs[$envKey];
     }
 }
