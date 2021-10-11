@@ -7,7 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 declare(strict_types = 1);
 
 namespace Nigatedev\FrameworkBundle\Attributes;
@@ -42,11 +41,12 @@ class Route
      * Route Attribute constructor
      *
      * @param string $path      Request URL (e.g: https://example.com/about)
+     * @param string $name      The name is used to generate a url for this route.
      * @param string $method    HTTP request method (e.g: get|post|delete...)
      *
      * @return void
      */
-    public function __construct($path, $name, $method = "get")
+    public function __construct(string $path, string $name, string $method = "get")
     {
         $this->path = $path;
         $this->method = $method;
@@ -54,7 +54,7 @@ class Route
     }
     
     /**
-     * Get the method
+     * Get HTTP method
      *
      * @return string
      */
