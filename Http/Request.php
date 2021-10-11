@@ -92,7 +92,7 @@ class Request
      *
      * @return ServerRequestInterface
      */
-    public function fromGlobals()
+    public function fromGlobals(): ServerRequestInterface
     {
         return $this->request;
     }

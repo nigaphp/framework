@@ -16,7 +16,7 @@ class RequestTest extends TestCase
     /**
      * @test
      */
-    public function method()
+    public function requestMethods()
     {
         $this->isPost();
         $this->isGet();
@@ -24,19 +24,19 @@ class RequestTest extends TestCase
     
     public function isPost()
     {
-        $request = new HttpRequest((new ServerRequest("POST", "/")));
-        $this->assertTrue($request->isPost());
+       $request = new HttpRequest((new ServerRequest("POST", "/")));
+       $this->assertTrue($request->isPost());
       
-        $request = new HttpRequest((new ServerRequest("GET", "/")));
-        $this->assertFalse($request->isPost());
+       $request = new HttpRequest((new ServerRequest("GET", "/")));
+       $this->assertFalse($request->isPost());
     }
     
     public function isGet()
     {
-        $request = new HttpRequest((new ServerRequest("GET", "/")));
-        $this->assertTrue($request->isGet());
+       $request = new HttpRequest((new ServerRequest("GET", "/")));
+       $this->assertTrue($request->isGet());
       
-        $request = new HttpRequest((new ServerRequest("POST", "/")));
-        $this->assertFalse($request->isGet());
+       $request = new HttpRequest((new ServerRequest("POST", "/")));
+       $this->assertFalse($request->isGet());
     }
 }
