@@ -20,15 +20,27 @@ use Nigatedev\FrameworkBundle\Models\AbstractModel;
  */
 class Field
 {
+    /**
+     * @var string
+     */
+    public $type;
+    
+    /**
+     * @var string
+     */
+    public $attribute;
+    
+    /**
+     * @var AbstractModel
+     */
+    public AbstractModel $model;
+    
     public const TYPE_TEXT = "text";
     public const TYPE_EMAIL = "email";
     public const TYPE_PASSWORD = "password";
     public const TYPE_NUMBER = "number";
     public const TYPE_CHECKBOX = "checkbox";
     public const TYPE_RADIOBOX = "radiobox";
-    public string $type;
-    public AbstractModel $model;
-    public string $attribute;
     
     /**
      * Field constructor
