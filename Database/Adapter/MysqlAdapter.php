@@ -19,7 +19,6 @@ use PDO;
  */
 class MysqlAdapter implements AdapterInterface
 {
-  
   /**
    * @var string[]
    */
@@ -29,33 +28,25 @@ class MysqlAdapter implements AdapterInterface
    * Constructor
    *
    * @param string[] $configuration;
+   * @return void
    */
     public function __construct(array $configuration)
     {
-        $this->config = $configuration;
+        $this->configuration = $configuration;
     }
    
-   /**
-    * Try to connect to the database
-    *
-    * @return mixed
-    * @throw PDOException
-    */
+   /** MySQL {@inheritdoc} */
     public function connect()
     {
         $pdo = null;
-     
-        $configuration = $this->config;
-     
         try {
-            $pdo = new PDO("mysql:host={$configuration['host']};dbname={$configuration['name']}", $configuration["user"], $configuration["password"]);
+            $pdo = new PDO("mysql:host={$this->configuration['host']};dbname={$this->configuration['name']}", $this->configuration["user"], $this->configuration["password"]);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             $pdo->exec("SET NAMES utf8");
         } catch (\PDOException $e) {
-            die($e->getMessage());
+            echo $e->getMessage();
         }
-     
         return $pdo;
     }
 }

@@ -19,4 +19,12 @@ use PDO;
  */
 interface AdapterInterface
 {
+    
+   /**
+    * Database connection
+    *
+    * @return PDO|null
+    * @throw PDOException
+    */
+    public function connect();
 }

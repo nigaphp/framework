@@ -10,7 +10,6 @@
 
 namespace Nigatedev\FrameworkBundle\Database\Adapter;
 
-use Nigatedev\App;
 use PDO;
 
 /**
@@ -24,32 +23,29 @@ class SqliteAdapter implements AdapterInterface
   /**
    * @var string[]
    */
-    private array $config = [];
+    private array $configuration = [];
    
   /**
    * Constructor
    *
-   * @param string[] $config
+   * @param string[] $configuration
    */
-    public function __construct(array $config)
+    public function __construct(array $configuration)
     {
-        $this->config = $config;
+        $this->configuration = $configuration;
     }
    
+   /** SQLite {@inheritdoc} */
     public function connect()
     {
         $pdo = null;
-     
-        $config = $this->config;
-     
         try {
-            $pdo = new PDO($config["dsn"]);
+            $pdo = new PDO($this->configuration["dsn"]);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, $config["fetch"] ?? PDO::FETCH_OBJ);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            die($e->getMessage());
+            echo $e->getMessage();
         }
-     
         return $pdo;
     }
 }
