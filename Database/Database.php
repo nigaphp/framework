@@ -20,7 +20,7 @@ use Nigatedev\FrameworkBundle\Database\Exception\DBException;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class DB
+class Database extends AbstractDatabase
 {
    /**
     * @var string
@@ -225,37 +225,7 @@ class DB
         }
         return $dbDSN;
     }
-     
-    /**
-     * Get database user name
-     *
-     * @return string
-     */
-    public function getDbUser()
-    {
-        if ($this->dbUser == null) {
-            $dbUser = self::$selfConfig["user"] ?? $this->config["user"];
-        } else {
-            $dbUser = $this->dbUser;
-        }
-        return $dbUser;
-    }
-     
-    /**
-     * Get database user password
-     *
-     * @return string
-     */
-    public function getDbPassword()
-    {
-        if ($this->dbPassword == null) {
-            $dbPassword = self::$selfConfig["password"] ?? $this->config["password"];
-        } else {
-            $dbPassword = $this->dbPassword;
-        }
-        return $dbPassword;
-    }
-     
+    
    /**
     * Get Database connection
     *
@@ -264,16 +234,20 @@ class DB
     public function getConnection()
     {
         $configs = [
-        "driver" => $this->getDriver(),
-        "dsn" => $this->getDbDSN(),
-        "user" => $this->getDbUser(),
-        "password" => $this->getDbPassword(),
-        "fetch"  => $this->getFetch()
+            "mysql" => [
+                "host" => $this->getDbHost(),
+                "name" => $this->getDbName(),
+                "user" => $this->getDbUser(),
+                "password" => $this->getDbPassword()
+            ],
+            "sqlite" => [
+                'dsn' => $this->getDsn()
+            ]
         ];
       
-        if ($configs["driver"] === "mysql") {
-            return (new MysqlAdapter($configs))->connect();
+        if ($this->getDriver() === "mysql") {
+            return (new MysqlAdapter($configs['mysql']))->connect();
         }
-        return (new SqliteAdapter($configs))->connect();
+        return (new SqliteAdapter($configs['sqlite']))->connect();
     }
 }

@@ -23,16 +23,16 @@ class MysqlAdapter implements AdapterInterface
   /**
    * @var string[]
    */
-    private array $config = [];
+    private array $configuration = [];
    
   /**
    * Constructor
    *
-   * @param string[] $config;
+   * @param string[] $configuration;
    */
-    public function __construct(array $config)
+    public function __construct(array $configuration)
     {
-        $this->config = $config;
+        $this->config = $configuration;
     }
    
    /**
@@ -45,12 +45,12 @@ class MysqlAdapter implements AdapterInterface
     {
         $pdo = null;
      
-        $config = $this->config;
+        $configuration = $this->config;
      
         try {
-            $pdo = new PDO($config["dsn"], $config["user"], $config["password"]);
+            $pdo = new PDO("mysql:host={$configuration['host']};dbname={$configuration['name']}", $configuration["user"], $configuration["password"]);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, $config["fetch"] ?? PDO::FETCH_OBJ);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             $pdo->exec("SET NAMES utf8");
         } catch (\PDOException $e) {
             die($e->getMessage());

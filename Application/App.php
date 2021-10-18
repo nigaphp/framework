@@ -16,7 +16,7 @@ use Nigatedev\FrameworkBundle\Http\Request;
 use Nigatedev\FrameworkBundle\Http\Response;
 use Nigatedev\FrameworkBundle\Http\Router\Router;
 use Nigatedev\FrameworkBundle\Debugger\Debugger;
-use Nigatedev\FrameworkBundle\Database\DB;
+use Nigatedev\FrameworkBundle\Database\Database;
 use Psr\Http\Message\ServerRequestInterface;
 use Nigatedev\FrameworkBundle\Attributes\Route;
 use ReflectionClass;
@@ -59,20 +59,20 @@ class App
     public Debugger $debugger;
 
     /**
-    * @var DB
+    * @var Database
     */
-    public DB $db;
+    public Database $db;
 
     /**
     * App constructor
     *
     * @param ServerRequestInterface $serverRequest
     * @param string $appRoot
-    * @param array[] $config
+    * @param array[] $configuration
     *
     * @return void
     */
-    public function __construct(ServerRequestInterface $serverRequest, string $appRoot, array $config)
+    public function __construct(ServerRequestInterface $serverRequest, string $appRoot, array $configuration)
     {
         self::$APP_ROOT = $appRoot;
         self::$app = $this;
@@ -81,9 +81,19 @@ class App
         $this->request = new Request($this->serverRequest);
         $this->router = new Router($this->serverRequest);
         $this->debugger = new Debugger();
-        $this->db = new DB($config["db"]);
+        $this->database = new Database($configuration["db"]);
     }
     
+    /**
+     * Get database connection
+     *
+     * @return Database
+     */
+    public function getDatabase(): Database
+    {
+        return $this->database;
+    }
+     
     /**
      * Load all your controller
      *

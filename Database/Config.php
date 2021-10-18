@@ -38,11 +38,12 @@ class Config
         "driver" => $driver,
         "mysql" => [
         "dsn" => $_ENV["MYSQL_DSN"] ?? "",
+        "host" => $_ENV["DB_HOST"] ?? "",
         "user" => $_ENV["DB_USER"] ?? "",
         "password" => $_ENV["DB_PASSWORD"] ?? "",
         ],
         "sqlite" => [
-        "dsn" => $_ENV["SQLITE_DSN"]
+        "dsn" => $_ENV["DSN"]
         ]
         ];
     }

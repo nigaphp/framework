@@ -14,30 +14,31 @@ namespace Nigatedev\FrameworkBundle\Models;
 /**
  * The default Model for user registration
  */
-class UserRegisterModel extends AbstractModel {
+class UserRegisterModel extends AbstractModel
+{
     
     /**
-     * @var string 
+     * @var string
      */
     public string $firstname = '';
     
     /**
-     * @var string 
+     * @var string
      */
     public string $lastname = '';
     
     /**
-     * @var string 
+     * @var string
      */
     public string $email = '';
     
     /**
-     * @var string 
+     * @var string
      */
     public string $password = '';
     
     /**
-     * @var string 
+     * @var string
      */
     public string $passwordrepeat = '';
     

@@ -16,7 +16,8 @@ namespace Nigatedev\FrameworkBundle\Models;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-abstract class AbstractModel {
+abstract class AbstractModel
+{
     
     public array $errors = [];
     public const RULE_REQUIRED = "required";
@@ -37,7 +38,7 @@ abstract class AbstractModel {
     /**
      * @return array
      */
-    public abstract function rules(): array;
+    abstract public function rules(): array;
     
     /**
      * @return bool
@@ -78,21 +79,21 @@ abstract class AbstractModel {
     
     /**
      * Add new field error
-     * 
+     *
      * @param string $attribute
      * @param string $rule
      * @param string[] $params
-     * 
+     *
      * @return void
      */
-   public function addErr(string $attribute, string $rule, array $params = [])
-   {
-       $message = $this->errorMessages()[$rule] ?? "";
-       foreach ($params as $key => $value) {
-           $message = str_replace("{{$key}}", $value, $message);
-       }
-       $this->errors[$attribute][] = $message;
-   }
+    public function addErr(string $attribute, string $rule, array $params = [])
+    {
+        $message = $this->errorMessages()[$rule] ?? "";
+        foreach ($params as $key => $value) {
+            $message = str_replace("{{$key}}", $value, $message);
+        }
+        $this->errors[$attribute][] = $message;
+    }
    
    /**
     * Errors message

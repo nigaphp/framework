@@ -55,7 +55,8 @@ class Field
     public function __toString()
     {
         
-        return sprintf('
+        return sprintf(
+            '
             <div class="form-group">
                 <label for="%s" class="form-label">%s</label>
                 <input name="%s" value="%s" type="%s" id="%s" class="form-control%s">
@@ -74,7 +75,7 @@ class Field
     
     /**
      * HTML input type password
-     * 
+     *
      * @return self
      */
     public function passwordField(): self
@@ -85,7 +86,7 @@ class Field
     
     /**
      * HTML input type email
-     * 
+     *
      * @return self
      */
     public function emailField(): self
@@ -96,7 +97,7 @@ class Field
     
     /**
      * HTML input type checkbox
-     * 
+     *
      * @return self
      */
     public function checkboxField(): self
@@ -107,7 +108,7 @@ class Field
     
     /**
      * HTML input type radiobox
-     * 
+     *
      * @return self
      */
     public function radioboxField(): self

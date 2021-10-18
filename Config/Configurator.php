@@ -100,7 +100,7 @@ class Configurator
      *
      * @return mixed
      */
-    public function globConfig()
+    public function configGlobals()
     {
         return [
           "db" => DBConfig::getConfig(),
