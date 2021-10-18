@@ -47,7 +47,7 @@ class Route
      *
      * @return void
      */
-    public function __construct(string $path, string $name, string $method = "get")
+    public function __construct(string $path, string $name = null, string $method = "get")
     {
         $this->path = $path;
         $this->method = $method;
