@@ -40,9 +40,9 @@ class PostgresqlAdapter implements AdapterInterface
     {
         $pdo = null;
         try {
-            $pdo = new PDO($_ENV["DB_URL"]);
+            $pdo = new PDO($this->configuration['url']);
         } catch (\PDOException $e) {
-            echo $e->getMessage();
+            echo "Error encountered: trying to connect to Postgresql database";
         }
         return $pdo;
     }

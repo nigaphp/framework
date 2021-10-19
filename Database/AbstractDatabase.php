@@ -11,7 +11,7 @@
 namespace Nigatedev\FrameworkBundle\Database;
 
 /**
- * Abstract Database
+ * Abstract database
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
@@ -22,17 +22,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
      * @var string[]
     */
      const  SUPPORTED_DRIVER = ["mysql", 'pgsql', "sqlite"];
-    
-    /**
-     * Get database url
-     *
-     * @return string
-     */
-    public function dbURL(): string
-    {
-        return $this->getDBUrl();
-    }
-    
+
     /**
      * Get Postgresql url
      *
@@ -41,7 +31,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
     public function getPgsqlUrl()
     {
         if ($this->getDriver() === "pgsql") {
-            return $this->dbURL();
+            return $this->getDBUrl();
         } else {
             return '';
         }
@@ -55,9 +45,9 @@ abstract class AbstractDatabase extends DatabaseConfiguration
     public function getSqliteUrl()
     {
         if ($this->getDriver() === "sqlite") {
-            return $this->dbURL();
+            return $this->getDBUrl();
         } else {
-            return null;
+            return '';
         }
     }
     
@@ -69,15 +59,15 @@ abstract class AbstractDatabase extends DatabaseConfiguration
     public function getMysqlUrl()
     {
         if ($this->getDriver() === "mysql") {
-            return $this->dbURL();
+            return $this->getDBUrl();
         } else {
-            return null;
+            return '';
         }
     }
     
     public function getDriver()
     {
-        $dbUrl = substr($this->dbURL(), 0, 6);
+        $dbUrl = substr($this->getDBUrl(), 0, 6);
         
         if (preg_match('/^mysql/', $dbUrl)) {
             return 'mysql';
@@ -86,8 +76,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
         } elseif (preg_match('/^sqlite/', $dbUrl)) {
             return 'sqlite';
         } else {
-            echo "Error bad database URL configuration";
-            exit(1);
+            return null;
         }
     }
     

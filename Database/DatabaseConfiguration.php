@@ -3,30 +3,27 @@
  * This file is part of the Nigatedev PHP framework package
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Nigatedev\FrameworkBundle\Database;
 
-use Nigatedev\FrameworkBundle\Database\Exception\DBException;
-use PDO;
-
 /**
-* Database Configuration
+* Database configuration
 *
 * @author Abass Ben Cheik <abass@todaysdev.com>
 */
 class DatabaseConfiguration
 {
-
-    public static function getDBUrl()
+    /**
+     * Get database url
+     *
+     * @return string
+     */
+    public static function getDBUrl(): string
     {
-        try {
-            $url = $_ENV['DB_URL'];
-        } catch (DBException $e) {
-            echo "DATABASE CONFIGURATION ERROR: ".$e->getMessage()." in ". $e->getFile()." file on line ".$e->getLine();
-            exit(1);
-        }
-        
-        return $url;
+        return $_ENV['DATABASE_URL'] ?? '';
     }
 }

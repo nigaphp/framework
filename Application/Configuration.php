@@ -63,7 +63,6 @@ class Configuration
      */
     public static function getEntityManagerConfig()
     {
-        
         try {
             require_once self::getAppRoot()."/config/env.loader.php";
             $getOrmConfig = self::getParser("/config/dependencies/doctrine.json");

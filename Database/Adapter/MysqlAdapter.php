@@ -45,7 +45,7 @@ class MysqlAdapter implements AdapterInterface
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             $pdo->exec("SET NAMES utf8");
         } catch (\PDOException $e) {
-            echo $e->getMessage();
+            echo "Error encountered: trying to connect to MySQL database";
         }
         return $pdo;
     }

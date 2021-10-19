@@ -10,11 +10,9 @@
 
 namespace Nigatedev\FrameworkBundle\Database;
 
-use PDO;
 use Nigatedev\FrameworkBundle\Database\Adapter\MysqlAdapter;
 use Nigatedev\FrameworkBundle\Database\Adapter\PostgresqlAdapter;
 use Nigatedev\FrameworkBundle\Database\Adapter\SqliteAdapter;
-use Nigatedev\FrameworkBundle\Database\Exception\DBException;
 
 /**
  * Database connection
@@ -24,31 +22,13 @@ use Nigatedev\FrameworkBundle\Database\Exception\DBException;
 class Database extends AbstractDatabase
 {
    /**
-    * @var string
-    */
-    private $dbURL;
-    
-    /**
-     * Constructor
-     *
-     * @param string[] $configuration
-     * @param string[] $options
-     *
-     * @return void
-     */
-    public function __construct($configuration)
-    {
-        $this->config = $configuration;
-    }
-    
-   /**
     * Get Database connection
     *
-    * @return mixed
+    * @return AdapterInterface|null
     */
     public function getConnection()
     {
-        $configurations = [
+        $config = [
             "mysql" => [
                 'url' => $this->getMysqlUrl()
             ],
@@ -59,22 +39,19 @@ class Database extends AbstractDatabase
                 'url' => $this->getSqliteUrl()
             ]
         ];
+        
         $connection = null;
         switch ($this->getDriver()) {
             case 'mysql':
-                   $connection = (new MysqlAdapter($configurations['mysql']))->connect();
+                   $connection = (new MysqlAdapter($config['mysql']))->connect();
                 break;
             
             case 'pgsql':
-                  $connection =  (new PostgresqlAdapter($configurations['pgsql']))->connect();
+                  $connection =  (new PostgresqlAdapter($config['pgsql']))->connect();
                 break;
         
             case 'sqlite':
-                   $connection = (new SqliteAdapter($configurations['sqlite']))->connect();
-                break;
-            
-            default:
-                echo "Error with database URL configuration";
+                   $connection = (new SqliteAdapter($config['sqlite']))->connect();
                 break;
         }
         return $connection;

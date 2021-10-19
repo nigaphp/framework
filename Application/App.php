@@ -59,20 +59,14 @@ class App
     public Debugger $debugger;
 
     /**
-    * @var Database
-    */
-    public Database $db;
-
-    /**
     * App constructor
     *
     * @param ServerRequestInterface $serverRequest
     * @param string $appRoot
-    * @param array[] $configuration
     *
     * @return void
     */
-    public function __construct(ServerRequestInterface $serverRequest, string $appRoot, array $configuration)
+    public function __construct(ServerRequestInterface $serverRequest, string $appRoot)
     {
         self::$APP_ROOT = $appRoot;
         self::$app = $this;
@@ -81,7 +75,6 @@ class App
         $this->request = new Request($this->serverRequest);
         $this->router = new Router($this->serverRequest);
         $this->debugger = new Debugger();
-        $this->database = new Database($configuration["db"]);
     }
     
     /**
@@ -91,11 +84,11 @@ class App
      */
     public function getDatabase(): Database
     {
-        return $this->database;
+        return (new Database());
     }
      
     /**
-     * Load all your controller
+     * Load routes
      *
      * @param string[] $controllers   array of controllers class as string[] including the full namespace
      * @return void
@@ -131,7 +124,7 @@ class App
     }
 
    /**
-    * App runner
+    * Run app
     * @throws AppException
     *
     * @return void

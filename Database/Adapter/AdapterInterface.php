@@ -13,7 +13,7 @@ namespace Nigatedev\FrameworkBundle\Database\Adapter;
 use PDO;
 
 /**
- * Adapter Interface
+ * Adapter interface
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
