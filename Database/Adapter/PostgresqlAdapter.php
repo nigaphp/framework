@@ -17,9 +17,8 @@ use PDO;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-class SqliteAdapter implements AdapterInterface
+class PostgresqlAdapter implements AdapterInterface
 {
-  
   /**
    * @var string[]
    */
@@ -28,21 +27,20 @@ class SqliteAdapter implements AdapterInterface
   /**
    * Constructor
    *
-   * @param string[] $configuration
+   * @param string[] $configuration;
+   * @return void
    */
     public function __construct(array $configuration)
     {
         $this->configuration = $configuration;
     }
    
-   /** SQLite {@inheritdoc} */
+   /** Postgresql {@inheritdoc} */
     public function connect()
     {
         $pdo = null;
         try {
-            $pdo = new PDO($this->configuration["url"]);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $pdo = new PDO($_ENV["DB_URL"]);
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }

@@ -12,6 +12,7 @@ namespace Nigatedev\FrameworkBundle\Database;
 
 use PDO;
 use Nigatedev\FrameworkBundle\Database\Adapter\MysqlAdapter;
+use Nigatedev\FrameworkBundle\Database\Adapter\PostgresqlAdapter;
 use Nigatedev\FrameworkBundle\Database\Adapter\SqliteAdapter;
 use Nigatedev\FrameworkBundle\Database\Exception\DBException;
 
@@ -25,205 +26,19 @@ class Database extends AbstractDatabase
    /**
     * @var string
     */
-    private $dbDSN;
-    
-   /**
-    * @var string
-    */
-    private $dbUser;
-    
-   /**
-    * @var string
-    */
-    private $dbPassword;
-    
-   /**
-    * @var string
-    */
-    protected static $selfDriver;
-    
-   /**
-    * @var string[]
-    */
-    protected static array $selfConfig = [];
-    
-    
-   /**
-    * @var string[]
-    */
-    protected static array $selfOptions = [];
-    
-    /**
-     * @var string[]
-    */
-    protected array $config = [];
-    
-    /**
-     * @var string[]
-    */
-    protected array $options = [];
-    
-    /**
-     * @var string
-    */
-    private $driver;
-    
-    /**
-     * @var string
-    */
-    private $fetch;
-    
-    /**
-     * @var string[]
-    */
-     const  SUPPORTED_DRIVER = ["mysql", "sqlite"];
+    private $dbURL;
     
     /**
      * Constructor
      *
-     * @param string[] $config
+     * @param string[] $configuration
      * @param string[] $options
      *
      * @return void
      */
-    public function __construct($config, $options = [])
+    public function __construct($configuration)
     {
-        $this->config = $config;
-        $this->options = $options;
-    }
-    
-   /**
-    * Overwrite database configuration
-    *
-    * @param string $driver
-    * @param string[] $selfConfig
-    * @param string[] $selfOptions
-    *
-    * @return mixed
-    */
-    public static function config(string $driver, array $selfConfig = [], array $selfOptions = [])
-    {
-        self::$selfDriver = $driver;
-        self::$selfConfig = $selfConfig;
-        self::$selfOptions = $selfOptions;
-    }
-    
-    /**
-     * Set driver
-     *
-     * @param string $driver
-     * @return self
-     */
-    public function setDriver(string $driver): self
-    {
-        $this->driver = $driver;
-       
-        return $this;
-    }
-     
-    /**
-     * Set fetch mode
-     *
-     * @param string $fetch
-     * @return self
-     */
-    public function setFetch(string $fetch): self
-    {
-        $this->fetch = $fetch;
-       
-        return $this;
-    }
-     
-    /**
-     * Get Driver
-     *
-     * @return string
-     */
-    public function getDriver()
-    {
-        if ($this->driver == null) {
-            $driver = self::$selfDriver ?? $this->config["driver"];
-        } else {
-            $driver = $this->driver;
-        }
-        if (strlen($driver) < 1) {
-            throw new DBException("Fatal: not driver found for this configuration");
-        } elseif (!in_array($driver, static::SUPPORTED_DRIVER)) {
-            throw new DBException("Fatal: $driver is not a supposed driver!");
-        }
-        return $driver;
-    }
-    
-    /**
-     * Get fetch mode
-     *
-     * @return string
-     */
-    public function getFetch()
-    {
-        if ($this->fetch == null) {
-            $fetch = self::$selfOptions["fetch"] ?? $this->options["fetch"];
-        } else {
-            $fetch = $this->fetch;
-        }
-        return $fetch;
-    }
-    
-    /**
-     * Set ...
-     *
-     * @param string $dbDSN;
-     *
-     * @return self
-     */
-    public function setDbDSN(string $dbDSN)
-    {
-        $this->dbDSN = $dbDSN;
-       
-        return $this;
-    }
-     
-    /**
-     * Set ...
-     *
-     * @param string $dbUser;
-     *
-     * @return self
-     */
-    public function setDbUser(string $dbUser): self
-    {
-        $this->dbUser = $dbUser;
-       
-        return $this;
-    }
-     
-    /**
-     * Set ...
-     *
-     * @param string $dbPassword;
-     *
-     * @return self
-     */
-    public function setPassword(string $dbPassword): self
-    {
-        $this->dbPassword = $dbPassword;
-       
-        return $this;
-    }
-     
-    /**
-     * Get database DSN
-     *
-     * @return string
-     */
-    public function getDbDSN()
-    {
-        if ($this->dbDSN == null) {
-            $dbDSN = self::$selfConfig["dsn"] ?? $this->config["dsn"];
-        } else {
-            $dbDSN = $this->dbDSN;
-        }
-        return $dbDSN;
+        $this->config = $configuration;
     }
     
    /**
@@ -233,21 +48,35 @@ class Database extends AbstractDatabase
     */
     public function getConnection()
     {
-        $configs = [
+        $configurations = [
             "mysql" => [
-                "host" => $this->getDbHost(),
-                "name" => $this->getDbName(),
-                "user" => $this->getDbUser(),
-                "password" => $this->getDbPassword()
+                'url' => $this->getMysqlUrl()
+            ],
+            "pgsql" => [
+                'url' => $this->getPgsqlUrl()
             ],
             "sqlite" => [
-                'dsn' => $this->getDsn()
+                'url' => $this->getSqliteUrl()
             ]
         ];
-      
-        if ($this->getDriver() === "mysql") {
-            return (new MysqlAdapter($configs['mysql']))->connect();
+        $connection = null;
+        switch ($this->getDriver()) {
+            case 'mysql':
+                   $connection = (new MysqlAdapter($configurations['mysql']))->connect();
+                break;
+            
+            case 'pgsql':
+                  $connection =  (new PostgresqlAdapter($configurations['pgsql']))->connect();
+                break;
+        
+            case 'sqlite':
+                   $connection = (new SqliteAdapter($configurations['sqlite']))->connect();
+                break;
+            
+            default:
+                echo "Error with database URL configuration";
+                break;
         }
-        return (new SqliteAdapter($configs['sqlite']))->connect();
+        return $connection;
     }
 }

@@ -7,7 +7,7 @@
  
 namespace Nigatedev\FrameworkBundle\Config;
 
-use Nigatedev\FrameworkBundle\Database\Config as DBConfig;
+use Nigatedev\FrameworkBundle\Database\DatabaseConfiguration as DBConfig;
 use Nigatedev\Framework\Filesystem\Filesystem;
 
 /**
@@ -103,7 +103,7 @@ class Configurator
     public function configGlobals()
     {
         return [
-          "db" => DBConfig::getConfig(),
+          "db" => DBConfig::getDBUrl(),
              "controllerDir" => $this->getControllerDir(),
              "viewsDir" => $this->getViewsDir(),
         ];

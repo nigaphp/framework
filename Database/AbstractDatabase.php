@@ -15,8 +15,81 @@ namespace Nigatedev\FrameworkBundle\Database;
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-abstract class AbstractDatabase
+abstract class AbstractDatabase extends DatabaseConfiguration
 {
+    
+    /**
+     * @var string[]
+    */
+     const  SUPPORTED_DRIVER = ["mysql", 'pgsql', "sqlite"];
+    
+    /**
+     * Get database url
+     *
+     * @return string
+     */
+    public function dbURL(): string
+    {
+        return $this->getDBUrl();
+    }
+    
+    /**
+     * Get Postgresql url
+     *
+     * @return mixed
+     */
+    public function getPgsqlUrl()
+    {
+        if ($this->getDriver() === "pgsql") {
+            return $this->dbURL();
+        } else {
+            return '';
+        }
+    }
+    
+    /**
+     * Get Sqlite url
+     *
+     * @return mixed
+     */
+    public function getSqliteUrl()
+    {
+        if ($this->getDriver() === "sqlite") {
+            return $this->dbURL();
+        } else {
+            return null;
+        }
+    }
+    
+    /**
+     * Get MySQL url
+     *
+     * @return mixed
+     */
+    public function getMysqlUrl()
+    {
+        if ($this->getDriver() === "mysql") {
+            return $this->dbURL();
+        } else {
+            return null;
+        }
+    }
+    
+    public function getDriver()
+    {
+        $dbUrl = substr($this->dbURL(), 0, 6);
+        
+        if (preg_match('/^mysql/', $dbUrl)) {
+            return 'mysql';
+        } elseif (preg_match('/^pgsql/', $dbUrl)) {
+            return 'pgsql';
+        } elseif (preg_match('/^sqlite/', $dbUrl)) {
+            return 'sqlite';
+        } else {
+            echo "Error bad database URL configuration";
+            exit(1);
+        }
+    }
     
     /**
      * Get database host name
