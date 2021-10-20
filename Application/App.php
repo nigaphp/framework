@@ -88,12 +88,12 @@ class App
     }
      
     /**
-     * Load routes
+     * Controllers loader
      *
      * @param string[] $controllers   array of controllers class as string[] including the full namespace
      * @return void
      */
-    public function routesLoader(array $controllers)
+    public function loader(array $controllers)
     {
         if (is_array($controllers)) {
             foreach ($controllers as $controller) {

@@ -54,13 +54,22 @@ class Loader
     }
   
   /**
-   * Load only config files
+   * Config files loader
    *
    * @param string $file  file to load
    * @return string
    */
-    public static function load(string $file)
+    public static function load()
     {
-        return require_once App::$APP_ROOT."/config/$file";
+        $dir = App::$APP_ROOT."/config";
+        $file = "${dir}/loader.php";
+        
+        if (!is_dir($dir)) {
+            mkdir($dir);
+        } if (!file_exists($file)) {
+            fopen($file, "w");
+        }
+        
+        return require_once $file;
     }
 }
