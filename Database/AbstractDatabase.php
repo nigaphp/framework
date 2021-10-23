@@ -22,7 +22,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
     /**
      * @var string[]
     */
-    protected const  SUPPORTED_DRIVER = ["mysql", 'pgsql', "sqlite"];
+    protected const  SUPPORTED_DRIVER = ["mysql", "postgres", "sqlite"];
      
      /**
       * @var array
