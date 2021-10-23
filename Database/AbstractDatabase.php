@@ -9,6 +9,7 @@
  */
 
 namespace Nigatedev\FrameworkBundle\Database;
+use Nigatedev\FrameworkBundle\Database\Exception\ConfigurationException;
 
 /**
  * Abstract database
@@ -21,61 +22,85 @@ abstract class AbstractDatabase extends DatabaseConfiguration
     /**
      * @var string[]
     */
-     const  SUPPORTED_DRIVER = ["mysql", 'pgsql', "sqlite"];
-
-    /**
-     * Get Postgresql url
-     *
-     * @return mixed
-     */
-    public function getPgsqlUrl()
-    {
-        if ($this->getDriver() === "pgsql") {
-            return $this->getDBUrl();
-        } else {
-            return '';
-        }
-    }
+    protected const  SUPPORTED_DRIVER = ["mysql", 'pgsql', "sqlite"];
+     
+     /**
+      * @var array
+      */
+    private $dbDriver = [];
     
+     /**
+      * Constructor
+      * 
+      * @return void
+      * @throws ConfigurationException
+      */
+     public function __construct()
+     {
+         $this->dbDriver = $this->getDbUrl()["driver"];
+         
+         if (!in_array($this->dbDriver, self::SUPPORTED_DRIVER)) {
+             throw new ConfigurationException("FATAL ERROR: Unknown database driver ! ");
+         }
+     }
+     
     /**
-     * Get Sqlite url
+     * Get MySQL database url
      *
-     * @return mixed
-     */
-    public function getSqliteUrl()
-    {
-        if ($this->getDriver() === "sqlite") {
-            return $this->getDBUrl();
-        } else {
-            return '';
-        }
-    }
-    
-    /**
-     * Get MySQL url
-     *
-     * @return mixed
+     * @return array[]|false
      */
     public function getMysqlUrl()
     {
-        if ($this->getDriver() === "mysql") {
-            return $this->getDBUrl();
-        } else {
-            return '';
+        if ($this->dbDriver === "mysql") {
+            return $this->getDbUrl();
         }
+        return false;
     }
     
+    /**
+     * Get Postgresql database url
+     *
+     * @return array[]|false
+     */
+    public function getPostgresUrl()
+    {
+        if ($this->dbDriver === "postgres") {
+            return $this->getDbUrl();
+        }
+        return false;
+    }
+    
+    /**
+     * Get SQLite database url
+     *
+     * @return array[]|false
+     */
+    public function getSqliteUrl()
+    {
+        if ($this->dbDriver === "sqlite") {
+            return $this->getDbUrl();
+        }
+        return false;
+    }
+    
+    /**
+     * Get PDO driver
+     * 
+     * @return string|null
+     */
     public function getDriver()
     {
-        $dbUrl = substr($this->getDBUrl(), 0, 6);
         
-        if (preg_match('/^mysql/', $dbUrl)) {
+        if ($this->getMysqlUrl()) {
             return 'mysql';
-        } elseif (preg_match('/^pgsql/', $dbUrl)) {
-            return 'pgsql';
-        } elseif (preg_match('/^sqlite/', $dbUrl)) {
+        } 
+        elseif ($this->getPostgresUrl()) {
+            return 'postgres';
+        } 
+        elseif ($this->getSqliteUrl()) {
             return 'sqlite';
-        } else {
+        } 
+        else {
             return null;
         }
     }

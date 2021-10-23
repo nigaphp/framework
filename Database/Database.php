@@ -30,13 +30,13 @@ class Database extends AbstractDatabase
     {
         $config = [
             "mysql" => [
-                'url' => $this->getMysqlUrl()
+                'connection' => $this->getMysqlUrl()
             ],
-            "pgsql" => [
-                'url' => $this->getPgsqlUrl()
+            "postgres" => [
+                'connection' => $this->getPostgresUrl()
             ],
             "sqlite" => [
-                'url' => $this->getSqliteUrl()
+                'connection' => $this->getSqliteUrl()
             ]
         ];
         
@@ -46,8 +46,8 @@ class Database extends AbstractDatabase
                    $connection = (new MysqlAdapter($config['mysql']))->connect();
                 break;
             
-            case 'pgsql':
-                  $connection =  (new PostgresqlAdapter($config['pgsql']))->connect();
+            case 'postgres':
+                  $connection =  (new PostgresqlAdapter($config['postgres']))->connect();
                 break;
         
             case 'sqlite':

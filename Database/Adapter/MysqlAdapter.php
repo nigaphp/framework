@@ -32,7 +32,7 @@ class MysqlAdapter implements AdapterInterface
    */
     public function __construct(array $configuration)
     {
-        $this->configuration = $configuration;
+        $this->configuration = $configuration["connection"];
     }
    
    /** MySQL {@inheritdoc} */
@@ -40,12 +40,17 @@ class MysqlAdapter implements AdapterInterface
     {
         $pdo = null;
         try {
-            $pdo = new PDO($this->configuration["url"]);
+            $pdo = new PDO("mysql:" . sprintf("host=%s;port=%s;user=%s;password=%s;dbname=%s",
+            $this->configuration["host"], 
+            $this->configuration["port"],
+            $this->configuration["username"],
+            $this->configuration["password"],
+            $this->configuration["database"]));
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            $pdo->exec("SET NAMES utf8");
+            $pdo->exec("SET NAMES " . $this->configuration['charset']);
         } catch (\PDOException $e) {
-            echo "Error encountered: trying to connect to MySQL database";
+            echo "ERROR: Can't connect to MySQL database ";
         }
         return $pdo;
     }

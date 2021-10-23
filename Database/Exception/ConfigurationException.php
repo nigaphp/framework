@@ -8,23 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Database\Adapter;
-
-use PDO;
+namespace Nigatedev\FrameworkBundle\Database\Exception;
 
 /**
- * Adapter interface
+ * Database configuration Exception
  *
  * @author Abass Ben Cheik <abass@todaysdev.com>
  */
-interface AdapterInterface
+class ConfigurationException extends \Exception
 {
-    
-   /**
-    * Database connection
-    *
-    * @return PDO|null
-    * @throw \PDOException
-    */
-    public function connect();
 }

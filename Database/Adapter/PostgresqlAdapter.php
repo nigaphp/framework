@@ -23,7 +23,7 @@ class PostgresqlAdapter implements AdapterInterface
    * @var string[]
    */
     private array $configuration = [];
-   
+
   /**
    * Constructor
    *
@@ -32,17 +32,25 @@ class PostgresqlAdapter implements AdapterInterface
    */
     public function __construct(array $configuration)
     {
-        $this->configuration = $configuration;
+        $this->configuration = $configuration["connection"];
     }
    
-   /** Postgresql {@inheritdoc} */
+   /** MySQL {@inheritdoc} */
     public function connect()
     {
         $pdo = null;
         try {
-            $pdo = new PDO($this->configuration['url']);
+            $pdo = new PDO("pgsql:" . sprintf("host=%s;port=%s;user=%s;password=%s;dbname=%s",
+            $this->configuration["host"], 
+            $this->configuration["port"],
+            $this->configuration["username"],
+            $this->configuration["password"],
+            $this->configuration["database"]));
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, $this->configuration['fetch-mode'] ?? PDO::FETCH_ASSOC);
+            $pdo->exec("SET NAMES " . $this->configuration['charset']);
         } catch (\PDOException $e) {
-            echo "Error encountered: trying to connect to Postgresql database";
+            echo "ERROR: Can't connect to Postgresql database ";
         }
         return $pdo;
     }

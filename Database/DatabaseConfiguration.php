@@ -20,10 +20,21 @@ class DatabaseConfiguration
     /**
      * Get database url
      *
-     * @return string
+     * @return array
      */
-    public static function getDBUrl(): string
+    public static function getDbUrl(): array
     {
-        return $_ENV['DATABASE_URL'] ?? '';
+        $dbUrl = parse_url($_ENV['DATABASE_URL']);
+        return [
+            'driver' => $dbUrl['scheme'] ?? '',
+            'host' => $dbUrl['host'] ?? '',
+            'port' => $dbUrl['port'] ?? '',
+            'username' => $dbUrl['user'] ?? '',
+            'password' => $dbUrl['pass'] ?? '',
+            'database' => ltrim($dbUrl['path'], '/') ?? '',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'sslmode' => 'require',
+        ];
     }
 }
