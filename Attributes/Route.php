@@ -72,7 +72,7 @@ class Route
     public function getPath()
     {
         if (preg_match("/\d+$/", Config::getEnv("REQUEST_URI"), $id)) {
-            $_GET["id"] = $id[0];
+            $_ENV["_path_id"] = $id[0];
             $filterPath = preg_replace("/{id}/", $id[0], $this->path);
         } else {
             $filterPath = $this->path;

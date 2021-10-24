@@ -88,6 +88,14 @@ class Request
     }
     
     /**
+     * @return int|null
+     */
+    public function getId()
+    {
+         return (int)$_ENV["_path_id"];
+    }
+    
+    /**
      * All globals variables $_POST,$_GET...
      *
      * @return ServerRequestInterface
