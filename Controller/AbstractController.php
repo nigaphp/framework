@@ -66,6 +66,18 @@ abstract class AbstractController
     }
     
     /**
+     * Redirect to route
+     *
+     * @return mixed
+     */
+    public function redirectToRoute(string $route)
+    {
+        header ("HTTP/1.1 301 Moved Permanently");
+        header ("Location: ${route}");
+        exit();
+    }
+    
+    /**
      * Redirect to not found template and set the status code to 404
      *
      * @return mixed
