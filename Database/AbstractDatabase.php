@@ -9,6 +9,7 @@
  */
 
 namespace Nigatedev\FrameworkBundle\Database;
+
 use Nigatedev\FrameworkBundle\Database\Exception\ConfigurationException;
 
 /**
@@ -31,18 +32,16 @@ abstract class AbstractDatabase extends DatabaseConfiguration
     
      /**
       * Constructor
-      * 
+      *
       * @return void
       * @throws ConfigurationException
       */
-     public function __construct()
-     {
-         $this->dbDriver = $this->getDbUrl()["driver"];
-         
-         if (!in_array($this->dbDriver, self::SUPPORTED_DRIVER)) {
-             throw new ConfigurationException("FATAL ERROR: Unknown database driver ! ");
-         }
-     }
+    public function __construct()
+    {
+        if (!in_array($this->getDriver(), self::SUPPORTED_DRIVER)) {
+            throw new ConfigurationException("FATAL ERROR: Unknown database driver ! ");
+        }
+    }
      
     /**
      * Get MySQL database url
@@ -51,8 +50,8 @@ abstract class AbstractDatabase extends DatabaseConfiguration
      */
     public function getMysqlUrl()
     {
-        if ($this->dbDriver === "mysql") {
-            return $this->getDbUrl();
+        if ($this->getDriver() === "mysql") {
+            return $this->getConfig();
         }
         return false;
     }
@@ -64,8 +63,8 @@ abstract class AbstractDatabase extends DatabaseConfiguration
      */
     public function getPostgresUrl()
     {
-        if ($this->dbDriver === "postgres") {
-            return $this->getDbUrl();
+        if ($this->getDriver() === "postgres") {
+            return $this->getConfig();
         }
         return false;
     }
@@ -77,32 +76,10 @@ abstract class AbstractDatabase extends DatabaseConfiguration
      */
     public function getSqliteUrl()
     {
-        if ($this->dbDriver === "sqlite") {
-            return $this->getDbUrl();
+        if ($this->getDriver() === "sqlite") {
+            return $this->getConfig();
         }
         return false;
-    }
-    
-    /**
-     * Get PDO driver
-     * 
-     * @return string|null
-     */
-    public function getDriver()
-    {
-        
-        if ($this->getMysqlUrl()) {
-            return 'mysql';
-        } 
-        elseif ($this->getPostgresUrl()) {
-            return 'postgres';
-        } 
-        elseif ($this->getSqliteUrl()) {
-            return 'sqlite';
-        } 
-        else {
-            return null;
-        }
     }
     
     /**

@@ -41,7 +41,7 @@ class SqliteAdapter implements AdapterInterface
     {
         $pdo = null;
         try {
-            $pdo = new PDO("sqlite:" . sprintf("%s",$this->configuration["database"]));
+            $pdo = new PDO("sqlite:" . sprintf("%s", $this->configuration["database"]));
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, $this->configuration['fetch-mode'] ?? PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {

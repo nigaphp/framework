@@ -20,7 +20,7 @@ use Doctrine\ORM\EntityManager;
 */
 class ORMConfig
 {
-    /**
+   /**
     * Get doctrine orm entityManager
     */
     public function getEntityManagerConfig($connection, $annotation)

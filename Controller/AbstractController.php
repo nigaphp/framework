@@ -72,8 +72,8 @@ abstract class AbstractController
      */
     public function redirectToRoute(string $route)
     {
-        header ("HTTP/1.1 301 Moved Permanently");
-        header ("Location: ${route}");
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location: ${route}");
         exit();
     }
     

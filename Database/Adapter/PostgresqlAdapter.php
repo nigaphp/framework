@@ -40,12 +40,14 @@ class PostgresqlAdapter implements AdapterInterface
     {
         $pdo = null;
         try {
-            $pdo = new PDO("pgsql:" . sprintf("host=%s;port=%s;user=%s;password=%s;dbname=%s",
-            $this->configuration["host"], 
-            $this->configuration["port"],
-            $this->configuration["username"],
-            $this->configuration["password"],
-            $this->configuration["database"]));
+            $pdo = new PDO("pgsql:" . sprintf(
+                "host=%s;port=%s;user=%s;password=%s;dbname=%s",
+                $this->configuration["host"],
+                $this->configuration["port"],
+                $this->configuration["username"],
+                $this->configuration["password"],
+                $this->configuration["database"]
+            ));
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, $this->configuration['fetch-mode'] ?? PDO::FETCH_ASSOC);
             $pdo->exec("SET NAMES " . $this->configuration['charset']);

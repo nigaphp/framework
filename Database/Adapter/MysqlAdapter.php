@@ -40,12 +40,14 @@ class MysqlAdapter implements AdapterInterface
     {
         $pdo = null;
         try {
-            $pdo = new PDO("mysql:" . sprintf("host=%s;port=%s;user=%s;password=%s;dbname=%s",
-            $this->configuration["host"], 
-            $this->configuration["port"],
-            $this->configuration["username"],
-            $this->configuration["password"],
-            $this->configuration["database"]));
+            $pdo = new PDO("mysql:" . sprintf(
+                "host=%s;port=%s;user=%s;password=%s;dbname=%s",
+                $this->configuration["host"],
+                $this->configuration["port"],
+                $this->configuration["username"],
+                $this->configuration["password"],
+                $this->configuration["database"]
+            ));
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             $pdo->exec("SET NAMES " . $this->configuration['charset']);
