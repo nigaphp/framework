@@ -104,7 +104,7 @@ class Router
         }
 
         if (is_array($callback)) {
-            if (!class_exists($callback[0]::class)) {
+            if (!class_exists($callback[0])) {
                 return new Response(404, [], $this->diyan->render("errors/_404"));
             } else {
                 $callback[0] = new $callback[0];
