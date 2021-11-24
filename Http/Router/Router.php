@@ -102,14 +102,6 @@ class Router
         if (is_string($callback)) {
             return new Response(200, [], $this->diyan->render($callback));
         }
-
-        if (is_array($callback)) {
-            if (!class_exists($callback[0]::class)) {
-                return new Response(404, [], $this->diyan->render("errors/_404"));
-            } else {
-                $callback[0] = new $callback[0];
-            }
-        }
         
         ob_start();
         echo call_user_func($callback, App::$app->request);
