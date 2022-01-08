@@ -33,7 +33,7 @@ class DatabaseConfiguration
             'password' => $dbUrl['pass'] ?? '',
             'database' => ltrim($dbUrl['path'], '/') ?? '',
             'path' => $dbUrl['path'] ?? '',
-            'charset' => 'utf8',
+            'charset' => 'utf8mb4',
             'prefix' => '',
             'sslmode' => 'require',
         ];
