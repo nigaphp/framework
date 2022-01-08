@@ -2,7 +2,7 @@
 /*
  * This file is part of the Nigatedev PHP framework package
  *
- * (c) Abass Ben Cheik <abass@todaysdev.com>
+ * (c) Abass Ben Cheik <abass@todaydevs.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,11 +12,12 @@ declare(strict_types = 1);
 namespace Nigatedev\FrameworkBundle\Http;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Nigatedev\FrameworkBundle\API\API;
 
 /**
  * HTTP request
  *
- * @author Abass Ben Cheik <abass@todaysdev.com>
+ * @author Abass Ben Cheik <abass@todaydevs.com>
  */
 class Request
 {
@@ -26,6 +27,11 @@ class Request
      private $request;
      
     /**
+     * @var API
+     */
+     public API $api;
+      
+    /**
      * Request constructor
      *
      * @param ServerRequestInterface $request
@@ -33,6 +39,7 @@ class Request
     public function __construct(ServerRequestInterface $request)
     {
         $this->request = $request;
+        $this->api = new API();
     }
     
     /**
@@ -103,5 +110,13 @@ class Request
     public function fromGlobals(): ServerRequestInterface
     {
         return $this->request;
+    }
+    
+    /**
+     * JSON to Array
+     */
+    public function toArray($data) 
+    {
+        return json_decode($data, true);
     }
 }
