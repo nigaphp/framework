@@ -1,40 +1,43 @@
 {
-    "name": "nigatedev/framework-bundle",
-    "description": "Nigatedev framework bundle where Nigatedev framework dependencies live!",
-    "type": "library",
-    "keywords": ["framework", "nigatedev", "bundle"],
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Nigatedev\\FrameworkBundle\\": ""
-        }
-    },
-    "authors": [
-        {
-            "name": "Abass Ben Cheik",
-            "email": "cheikabassben@gmail.com"
-        }
-    ],
-    "require": {
-      "php": "^7.3|^8.0",
-      "doctrine/orm": "^2.9",
-      "doctrine/cache": "~1.11",
-      "nigatedev/diyan": "^1.0",
-      "nigatedev/support": "^1.0",
-      "nigatedev/query-builder": "^1.0",
-      "nigatedev/filesystem": "^1.0",
-      "nigatedev/parser": "^1.0",
-      "nigatedev/console": "dev-master",
-      "vlucas/phpdotenv": "^5.3",
-      "guzzlehttp/psr7": "^2.0",
-      "twig/twig": "^3.3",
-      "http-interop/response-sender": "^1.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5",
-        "phpstan/phpstan": "^0.12.94",
-        "filp/whoops": "^2.14",
-        "nigatedev/dumper": "^1.0"
-    },
-    "minimum-stability": "dev"
+  "name": "nigatedev/framework-bundle",
+  "description": "Nigatedev framework bundle where Nigatedev framework dependencies live!",
+  "type": "library",
+  "keywords": [
+    "framework",
+    "nigatedev",
+    "bundle"
+  ],
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Nigatedev\\FrameworkBundle\\": ""
+    }
+  },
+  "authors": [
+    {
+      "name": "Abass Ben Cheik",
+      "email": "cheikabassben@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.3|^8.0",
+    "doctrine/orm": "^2.9",
+    "doctrine/cache": "~1.11",
+    "nigatedev/diyan": "2.x-dev",
+    "nigatedev/support": "2.x-dev",
+    "nigatedev/query-builder": "2.x-dev",
+    "nigatedev/filesystem": "2.x-dev",
+    "nigatedev/console": "2.x-dev",
+    "vlucas/phpdotenv": "^5.3",
+    "guzzlehttp/psr7": "^2.0",
+    "twig/twig": "^3.3",
+    "http-interop/response-sender": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5",
+    "phpstan/phpstan": "^0.12.94",
+    "filp/whoops": "^2.14",
+    "nigatedev/dumper": "^1.0"
+  },
+  "minimum-stability": "dev"
 }
