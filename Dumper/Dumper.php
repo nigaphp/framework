@@ -5,9 +5,9 @@
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  */
 
-namespace niga\Dumper;
+namespace Niga\Dumper;
 
-use niga\Dumper\Template\DumperTemplate;
+use Niga\Dumper\Template\DumperTemplate;
 
 /**
  * Dumper class

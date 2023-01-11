@@ -11,8 +11,8 @@
 namespace Niga\Framework\Application;
 
 use Niga\Framework\Config\ORMConfig;
-use niga\Framework\Parser\JSONParser;
-use niga\Framework\Parser\Exception\ParseException;
+use Niga\Framework\Parser\JSONParser;
+use Niga\Framework\Parser\Exception\ParseException;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**

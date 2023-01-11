@@ -18,7 +18,7 @@ use Niga\Framework\Http\HttpException;
 use Niga\Framework\Http\Request;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use niga\Diyan\Diyan;
+use Niga\Diyan\Diyan;
 
 /**
  * Route generator

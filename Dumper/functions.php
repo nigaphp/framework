@@ -5,7 +5,7 @@
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  */
 
-use niga\Dumper\Dumper;
+use Niga\Dumper\Dumper;
 
 /**
  * dumper

@@ -5,7 +5,7 @@
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  */
 
-namespace niga\Dumper\Template;
+namespace Niga\Dumper\Template;
 
 /**
  * DumperTemplate class

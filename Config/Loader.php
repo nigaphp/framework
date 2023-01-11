@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Niga\Framework\Config;
 
 use Niga\Framework\Application\App;
-use niga\Framework\Parser\Parser;
+use Niga\Framework\Parser\Parser;
 
 /**
  * Config files loader

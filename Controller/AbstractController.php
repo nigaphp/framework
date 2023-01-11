@@ -16,7 +16,7 @@ use Niga\Framework\Application\App;
 use Niga\Framework\Http\Response;
 use Niga\Framework\Http\Request;
 use Niga\Framework\Controller\Exception\ControllerException;
-use niga\Diyan\Diyan;
+use Niga\Diyan\Diyan;
 use Niga\Framework\Application\Configuration;
 
 /**
