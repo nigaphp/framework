@@ -1,13 +1,13 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework package
+ * This file is part of the niga PHP framework package
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
- 
+
 namespace Niga\Framework\Controller;
 
 use Twig\Loader\FilesystemLoader;
@@ -16,7 +16,7 @@ use Niga\Framework\Application\App;
 use Niga\Framework\Http\Response;
 use Niga\Framework\Http\Request;
 use Niga\Framework\Controller\Exception\ControllerException;
-use Nigatedev\Diyan\Diyan;
+use niga\Diyan\Diyan;
 use Niga\Framework\Application\Configuration;
 
 /**
@@ -30,7 +30,7 @@ abstract class AbstractController
      * @var Diyan
      */
     protected $diyan;
-    
+
     /**
      * Construitor
      *
@@ -40,7 +40,7 @@ abstract class AbstractController
     {
         $this->diyan = App::$app->router->diyan;
     }
-     
+
     /**
      * @param string $view
      * @param string[] $params
@@ -54,9 +54,9 @@ abstract class AbstractController
         if ($defaultTemplate === "diyan") {
             return $this->diyan->render($view, $params);
         } elseif ($defaultTemplate === "twig") {
-            $loader = new FilesystemLoader(Configuration::getAppRoot()."/views");
+            $loader = new FilesystemLoader(Configuration::getAppRoot() . "/views");
             $twig = new Environment($loader, [
-            'cache' => false,
+                'cache' => false,
             ]);
             $template = $twig->load("{$view}.twig");
             return $template->render($params);
@@ -64,7 +64,7 @@ abstract class AbstractController
             throw new ControllerException("Bad template configuration!");
         }
     }
-    
+
     /**
      * Redirect to route
      *
@@ -76,7 +76,7 @@ abstract class AbstractController
         header("Location: ${route}");
         exit();
     }
-    
+
     /**
      * Redirect to not found template and set the status code to 404
      *
@@ -86,7 +86,7 @@ abstract class AbstractController
     {
         return new Response(404, [], $this->diyan->render("errors/_404", []));
     }
-    
+
     /**
      * @return mixed
      */
@@ -94,7 +94,7 @@ abstract class AbstractController
     {
         return Configuration::getEntityManagerConfig();
     }
-    
+
     /**
      * @return mixed
      */

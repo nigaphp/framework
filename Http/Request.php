@@ -1,13 +1,14 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework package
+ * This file is part of the niga PHP framework package
  *
  * (c) Abass Ben Cheik <abass@todaydevs.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Niga\Framework\Http;
 
@@ -24,13 +25,13 @@ class Request
     /**
      * @var ServerRequestInterface $request
      */
-     private $request;
-     
+    private $request;
+
     /**
      * @var API
      */
-     public API $api;
-      
+    public API $api;
+
     /**
      * Request constructor
      *
@@ -41,7 +42,7 @@ class Request
         $this->request = $request;
         $this->api = new API();
     }
-    
+
     /**
      * @return bool
      */
@@ -49,7 +50,7 @@ class Request
     {
         return $this->request->getMethod() === "POST";
     }
-    
+
     /**
      * @return bool
      */
@@ -57,8 +58,8 @@ class Request
     {
         return $this->request->getMethod() === "GET";
     }
-  
-    
+
+
     /**
      * Sanitize globals variables $_POST and $_GET
      *
@@ -69,13 +70,13 @@ class Request
         $body = [];
         if ($this->isGet()) {
             foreach ($this->request->getParsedBody() as $key => $value) {
-                $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS) ;
+                $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
         }
-        
+
         if ($this->isPost()) {
             foreach ($this->request->getParsedBody() as $key => $value) {
-                $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS) ;
+                $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
         }
         return $body;
@@ -93,15 +94,15 @@ class Request
             return $queryParams[$routeName];
         }
     }
-    
+
     /**
      * @return int|null
      */
     public function getId()
     {
-         return (int)$_ENV["_path_id"];
+        return (int)$_ENV["_path_id"];
     }
-    
+
     /**
      * All globals variables $_POST,$_GET...
      *
@@ -111,11 +112,11 @@ class Request
     {
         return $this->request;
     }
-    
+
     /**
      * JSON to Array
      */
-    public function toArray($data) 
+    public function toArray($data)
     {
         return json_decode($data, true);
     }

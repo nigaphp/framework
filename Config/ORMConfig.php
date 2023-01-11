@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Nigatedev framework package.
+ * This file is part of the niga framework package.
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *

@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework package
+ * This file is part of the niga PHP framework package
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *
@@ -19,30 +19,30 @@ use Niga\Framework\Database\Exception\ConfigurationException;
  */
 abstract class AbstractDatabase extends DatabaseConfiguration
 {
-    
+
     /**
      * @var string[]
-    */
+     */
     protected const  SUPPORTED_DRIVER = ["mysql", "postgres", "sqlite"];
-     
-     /**
-      * @var array
-      */
+
+    /**
+     * @var array
+     */
     private $dbDriver = [];
-    
-     /**
-      * Constructor
-      *
-      * @return void
-      * @throws ConfigurationException
-      */
+
+    /**
+     * Constructor
+     *
+     * @return void
+     * @throws ConfigurationException
+     */
     public function __construct()
     {
         if (!in_array($this->getDriver(), self::SUPPORTED_DRIVER)) {
             throw new ConfigurationException("FATAL ERROR: Unknown database driver ! ");
         }
     }
-     
+
     /**
      * Get MySQL database url
      *
@@ -55,7 +55,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
         }
         return false;
     }
-    
+
     /**
      * Get Postgresql database url
      *
@@ -68,7 +68,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
         }
         return false;
     }
-    
+
     /**
      * Get SQLite database url
      *
@@ -81,7 +81,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
         }
         return false;
     }
-    
+
     /**
      * Get database host name
      *
@@ -91,7 +91,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
     {
         return $_ENV['DB_HOST'] ?? '';
     }
-    
+
     /**
      * Get database name
      *
@@ -101,7 +101,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
     {
         return $_ENV['DB_NAME'] ?? '';
     }
-    
+
     /**
      * Get database user name
      *
@@ -111,7 +111,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
     {
         return $_ENV['DB_USER'] ?? '';
     }
-    
+
     /**
      * Get database user password
      *
@@ -121,7 +121,7 @@ abstract class AbstractDatabase extends DatabaseConfiguration
     {
         return $_ENV['DB_PASSWORD'] ?? '';
     }
-     
+
     /**
      * Database DSN
      *

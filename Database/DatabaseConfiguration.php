@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Nigatedev framework package.
+ * This file is part of the niga framework package.
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *
@@ -11,10 +11,10 @@
 namespace Niga\Framework\Database;
 
 /**
-* Database configuration
-*
-* @author Abass Ben Cheik <abass@todaysdev.com>
-*/
+ * Database configuration
+ *
+ * @author Abass Ben Cheik <abass@todaysdev.com>
+ */
 class DatabaseConfiguration
 {
     /**
@@ -38,7 +38,7 @@ class DatabaseConfiguration
             'sslmode' => 'require',
         ];
     }
-    
+
     /**
      * Get database driver
      *
@@ -51,7 +51,7 @@ class DatabaseConfiguration
         }
         return null;
     }
-    
+
     /**
      * Get database host
      *
@@ -64,7 +64,7 @@ class DatabaseConfiguration
         }
         return null;
     }
-    
+
     /**
      * Get database port
      *
@@ -77,7 +77,7 @@ class DatabaseConfiguration
         }
         return null;
     }
-    
+
     /**
      * Get database username
      *
@@ -90,7 +90,7 @@ class DatabaseConfiguration
         }
         return null;
     }
-    
+
     /**
      * Get database password
      *
@@ -103,7 +103,7 @@ class DatabaseConfiguration
         }
         return null;
     }
-    
+
     /**
      * Get database name
      *
@@ -116,7 +116,7 @@ class DatabaseConfiguration
         }
         return null;
     }
-    
+
     /**
      * Get database path
      *

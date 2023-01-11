@@ -1,30 +1,30 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework package
+ * This file is part of the niga PHP framework package
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  */
 
-namespace Nigatedev\Dumper\Template;
+namespace niga\Dumper\Template;
 
 /**
-* DumperTemplate class
-*
-* @author Abass Ben Cheik <abass@todaysdev.com>
-*/
+ * DumperTemplate class
+ *
+ * @author Abass Ben Cheik <abass@todaysdev.com>
+ */
 class DumperTemplate
 {
 
 
 
-  /**
-  * @params $pre can be any type of data
-  *
-  * @return data {$pre} surround by <pre> and </pre> HTML tag
-  */
+    /**
+     * @params $pre can be any type of data
+     *
+     * @return data {$pre} surround by <pre> and </pre> HTML tag
+     */
     public function pre($data)
     {
-    
+
         return $this->getDataType($data);
     }
 
@@ -34,19 +34,19 @@ class DumperTemplate
         switch ($dataType) {
             case 'string':
                 return $this->dataTypeIs(["Type" => "String", "Value" => $data]);
-            break;
+                break;
             case 'double':
                 return $this->dataTypeIs(["Type" => "Float", "Value" => $data]);
-            break;
+                break;
             case 'integer':
                 return $this->dataTypeIs(["Type" => "Integer", "Value" => $data]);
-            break;
+                break;
             case 'array':
                 return $this->dataTypeIs(["Type" => "Array", "Value" => $data]);
-            break;
+                break;
             case 'object':
-                return $this->dataTypeIs(["Type" => "Object", "Value" => $data::class."()"]);
-            break;
+                return $this->dataTypeIs(["Type" => "Object", "Value" => $data::class . "()"]);
+                break;
             case 'boolean':
                 if (!$data) {
                     $checkBool = "False";
@@ -54,14 +54,14 @@ class DumperTemplate
                     $checkBool = "True";
                 }
                 return $this->dataTypeIs(["Type" => "Bool", "Value" => $checkBool]);
-            break;
+                break;
             case 'NULL':
                 return $this->dataTypeIs(["Type" => "NULL", []]);
-            break;
+                break;
 
             default:
                 return "This type of data is not implemented yet try default (var_dump())";
-            break;
+                break;
         }
     }
 

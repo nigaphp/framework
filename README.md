@@ -1,3 +1,3 @@
-# Nigatedev framework bundle
+# niga framework bundle
 
-The core application of the [Nigatedev framework](https://github.com/nigatedev/nigatedev)
+The core application of the [niga framework](https://github.com/niga/niga)

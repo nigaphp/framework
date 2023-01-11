@@ -1,13 +1,14 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework package
+ * This file is part of the niga PHP framework package
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Niga\Framework\Models;
 
@@ -16,32 +17,32 @@ namespace Niga\Framework\Models;
  */
 class UserRegisterModel extends AbstractModel
 {
-    
+
     /**
      * @var string
      */
     public string $firstname = '';
-    
+
     /**
      * @var string
      */
     public string $lastname = '';
-    
+
     /**
      * @var string
      */
     public string $email = '';
-    
+
     /**
      * @var string
      */
     public string $password = '';
-    
+
     /**
      * @var string
      */
     public string $passwordrepeat = '';
-    
+
     /**
      * {@inheritDoc}
      */

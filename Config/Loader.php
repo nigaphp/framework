@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /*
- * This file is part of the Nigatedev PHP framework package
+ * This file is part of the niga PHP framework package
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *
@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Niga\Framework\Config;
 
 use Niga\Framework\Application\App;
-use Nigatedev\Framework\Parser\Parser;
+use niga\Framework\Parser\Parser;
 
 /**
  * Config files loader

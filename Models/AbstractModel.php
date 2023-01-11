@@ -1,14 +1,15 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework package
+ * This file is part of the niga PHP framework package
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-declare(strict_types = 1);
- 
+
+declare(strict_types=1);
+
 namespace Niga\Framework\Models;
 
 /**
@@ -18,14 +19,14 @@ namespace Niga\Framework\Models;
  */
 abstract class AbstractModel
 {
-    
+
     public array $errors = [];
     public const RULE_REQUIRED = "required";
     public const RULE_EMAIL = "email";
     public const RULE_MAX = "max";
     public const RULE_MIN = "min";
     public const RULE_MATCH = "match";
-    
+
     public function loadData($data)
     {
         foreach ($data as $key => $value) {
@@ -34,12 +35,12 @@ abstract class AbstractModel
             }
         }
     }
-    
+
     /**
      * @return array
      */
     abstract public function rules(): array;
-    
+
     /**
      * @return bool
      */
@@ -52,23 +53,23 @@ abstract class AbstractModel
                 if (!is_string($ruleName)) {
                     $ruleName = $rule[0];
                 }
-                
+
                 if ($ruleName === self::RULE_REQUIRED && !$value) {
                     $this->addErr($attribute, self::RULE_REQUIRED);
                 }
-                
+
                 if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->addErr($attribute, self::RULE_EMAIL);
                 }
-                
+
                 if ($ruleName === self::RULE_MIN && strlen($value) < $rule["min"]) {
                     $this->addErr($attribute, self::RULE_MIN, $rule);
                 }
-                
+
                 if ($ruleName === self::RULE_MAX && strlen($value) > $rule["max"]) {
                     $this->addErr($attribute, self::RULE_MAX, $rule);
                 }
-                
+
                 if ($ruleName === self::RULE_MATCH && $value != $this->{$rule["match"]}) {
                     $this->addErr($attribute, self::RULE_MATCH, $rule);
                 }
@@ -76,7 +77,7 @@ abstract class AbstractModel
         }
         return empty($this->errors);
     }
-    
+
     /**
      * Add new field error
      *
@@ -94,11 +95,11 @@ abstract class AbstractModel
         }
         $this->errors[$attribute][] = $message;
     }
-   
-   /**
-    * Errors message
-    * @return string[]
-    */
+
+    /**
+     * Errors message
+     * @return string[]
+     */
     public function errorMessages()
     {
         return [
@@ -109,7 +110,7 @@ abstract class AbstractModel
             self::RULE_MATCH        => 'This field must be the same as the {match} field.',
         ];
     }
-    
+
     /**
      * @param string $attribute
      * @return string|bool
@@ -118,7 +119,7 @@ abstract class AbstractModel
     {
         return $this->errors[$attribute] ?? false;
     }
-    
+
     /**
      * @param string $attribute
      * @return string

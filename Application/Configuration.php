@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Nigatedev framework package.
+ * This file is part of the niga framework package.
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *
@@ -11,8 +11,8 @@
 namespace Niga\Framework\Application;
 
 use Niga\Framework\Config\ORMConfig;
-use Nigatedev\Framework\Parser\JSONParser;
-use Nigatedev\Framework\Parser\Exception\ParseException;
+use niga\Framework\Parser\JSONParser;
+use niga\Framework\Parser\Exception\ParseException;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**

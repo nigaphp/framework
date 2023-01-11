@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework package
+ * This file is part of the niga PHP framework package
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *
@@ -19,24 +19,24 @@ use PDO;
  */
 class SqliteAdapter implements AdapterInterface
 {
-  
-  /**
-   * @var string[]
-   */
+
+    /**
+     * @var string[]
+     */
     private array $configuration = [];
 
-  /**
-   * Constructor
-   *
-   * @param string[] $configuration;
-   * @return void
-   */
+    /**
+     * Constructor
+     *
+     * @param string[] $configuration;
+     * @return void
+     */
     public function __construct(array $configuration)
     {
         $this->configuration = $configuration["connection"];
     }
-   
-   /** MySQL {@inheritdoc} */
+
+    /** MySQL {@inheritdoc} */
     public function connect()
     {
         $pdo = null;

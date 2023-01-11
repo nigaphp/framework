@@ -1,13 +1,14 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework package
+ * This file is part of the niga PHP framework package
  *
  * (c) Abass Ben Cheik <abass@todaysdev.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Niga\Framework\Http\Router;
 
@@ -17,7 +18,7 @@ use Niga\Framework\Http\HttpException;
 use Niga\Framework\Http\Request;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Nigatedev\Diyan\Diyan;
+use niga\Diyan\Diyan;
 
 /**
  * Route generator
@@ -30,12 +31,12 @@ class Router
      * @var Diyan instance
      */
     public Diyan $diyan;
-    
+
     /**
      * @var array[] $routes
      */
     protected $routes = [];
-    
+
     /**
      * @param ServerRequestInterface $request
      */
@@ -43,7 +44,7 @@ class Router
     {
         $this->diyan = new Diyan($request);
     }
-    
+
     /**
      * @param string $path
      * @param mixed $callback
@@ -54,7 +55,7 @@ class Router
     {
         $this->routes["get"][$path] = $callback;
     }
-    
+
     /**
      * @param string $path
      * @param mixed $callback
@@ -65,7 +66,7 @@ class Router
     {
         $this->routes["post"][$path] = $callback;
     }
-    
+
     /**
      * @var string $callback
      *
@@ -89,7 +90,7 @@ class Router
     {
         $method = $request->getMethod();
         $url = $request->getUri()->getPath() ?? "/";
-        
+
         if (strlen($url) > 1 && $url[-1] === "/") {
             return new Response(301, ["Location" => substr($url, 0, -1)]);
         }
@@ -98,11 +99,11 @@ class Router
         if ($callback === false) {
             return new Response(404, [], $this->diyan->render("errors/_404"));
         }
-        
+
         if (is_string($callback)) {
             return new Response(200, [], $this->diyan->render($callback));
         }
-        
+
         ob_start();
         echo call_user_func($callback, App::$app->request);
         $stream = ob_get_clean();

@@ -1,9 +1,10 @@
 <?php
 /*
- * This file is part of the Nigatedev PHP framework package
+ * This file is part of the niga PHP framework package
  *
  *  (c) Abass Ben Cheik <abass@todaysdev.com>
  */
+
 namespace Niga\Framework\Debugger;
 
 use Whoops\Run;
@@ -16,34 +17,34 @@ use Whoops\Handler\PrettyPageHandler;
  */
 class Debugger
 {
-  
+
   /**
    * @var bool $debugMode
    */
-    public static $debugMode = false;
-  
+  public static $debugMode = false;
+
   /**
    * Enable debug mode
    *
    * @return void
    */
-    public static function enableDebugMode(): void
-    {
-      
-        $whoops = new Run;
-        $whoops->pushHandler(new PrettyPageHandler);
-        $whoops->register();
+  public static function enableDebugMode(): void
+  {
 
-        self::$debugMode = true;
-    }
-  
+    $whoops = new Run;
+    $whoops->pushHandler(new PrettyPageHandler);
+    $whoops->register();
+
+    self::$debugMode = true;
+  }
+
   /**
    * Get debug mode status
    *
    * @return bool
    */
-    public function getDebugMode(): bool
-    {
-        return self::$debugMode;
-    }
+  public function getDebugMode(): bool
+  {
+    return self::$debugMode;
+  }
 }
