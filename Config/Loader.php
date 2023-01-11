@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of the Nigatedev PHP framework package
  *
@@ -8,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Config;
+namespace Niga\Framework\Config;
 
-use Nigatedev\FrameworkBundle\Application\App;
+use Niga\Framework\Application\App;
 use Nigatedev\Framework\Parser\Parser;
 
 /**
@@ -20,56 +22,57 @@ use Nigatedev\Framework\Parser\Parser;
  */
 class Loader
 {
-  /**
-   * string $path
-   */
+    /**
+     * string $path
+     */
     private $path;
-  
- /**
-  * Constructor
-  */
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->path = App::$APP_ROOT;
     }
-  
-  /**
-   * Import files
-   *
-   * @param string $file         Name of the file to import
-   * @param bool|string $path    File path/directory default => $APP_ROOT
-   * @param bool $parse          True if the file can be and should be parsed  example ["yaml", "json"...] files can be parsed
-   *
-   * @return mixed
-   */
+
+    /**
+     * Import files
+     *
+     * @param string $file         Name of the file to import
+     * @param bool|string $path    File path/directory default => $APP_ROOT
+     * @param bool $parse          True if the file can be and should be parsed  example ["yaml", "json"...] files can be parsed
+     *
+     * @return mixed
+     */
     public function import($file, $path = false, $parse = false)
     {
         if ($path !== false) {
             $this->path = $path;
         }
         if ($parse === true) {
-            return new Parser($this->path.$file);
+            return new Parser($this->path . $file);
         }
-        return $this->path.$file;
+        return $this->path . $file;
     }
-  
-  /**
-   * Config files loader
-   *
-   * @param string $file  file to load
-   * @return string
-   */
+
+    /**
+     * Config files loader
+     *
+     * @param string $file  file to load
+     * @return string
+     */
     public static function load()
     {
-        $dir = App::$APP_ROOT."/config";
+        $dir = App::$APP_ROOT . "/config";
         $file = "${dir}/loader.php";
-        
+
         if (!is_dir($dir)) {
             mkdir($dir);
-        } if (!file_exists($file)) {
+        }
+        if (!file_exists($file)) {
             fopen($file, "w");
         }
-        
+
         return require_once $file;
     }
 }

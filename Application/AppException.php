@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Application;
+namespace Niga\Framework\Application;
 
 /**
  * App core exceptions
@@ -17,5 +17,4 @@ namespace Nigatedev\FrameworkBundle\Application;
  */
 class AppException extends \Exception
 {
-  
 }

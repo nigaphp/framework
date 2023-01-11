@@ -9,7 +9,7 @@
  */
 declare(strict_types = 1);
 
-namespace Nigatedev\FrameworkBundle\Http;
+namespace Niga\Framework\Http;
 
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;

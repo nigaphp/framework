@@ -9,12 +9,12 @@
  */
 declare(strict_types = 1);
 
-namespace Nigatedev\FrameworkBundle\Http\Router;
+namespace Niga\Framework\Http\Router;
 
-use Nigatedev\FrameworkBundle\Application\App;
+use Niga\Framework\Application\App;
 use GuzzleHttp\Psr7\Response;
-use Nigatedev\FrameworkBundle\Http\HttpException;
-use Nigatedev\FrameworkBundle\Http\Request;
+use Niga\Framework\Http\HttpException;
+use Niga\Framework\Http\Request;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Nigatedev\Diyan\Diyan;

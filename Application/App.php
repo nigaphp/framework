@@ -7,65 +7,65 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-declare(strict_types = 1);
 
-namespace Nigatedev\FrameworkBundle\Application;
+declare(strict_types=1);
 
-use Nigatedev\Diyan\Diyan;
-use Nigatedev\FrameworkBundle\Http\Request;
-use Nigatedev\FrameworkBundle\Http\Response;
-use Nigatedev\FrameworkBundle\Http\Router\Router;
-use Nigatedev\FrameworkBundle\Debugger\Debugger;
-use Nigatedev\FrameworkBundle\Database\Database;
+namespace Niga\Framework\Application;
+
+use Niga\Framework\Http\Request;
+use Niga\Framework\Http\Response;
+use Niga\Framework\Http\Router\Router;
+use Niga\Framework\Debugger\Debugger;
+use Niga\Framework\Database\Database;
 use Psr\Http\Message\ServerRequestInterface;
-use Nigatedev\FrameworkBundle\Attributes\Route;
+use Niga\Framework\Attributes\Route;
 use ReflectionClass;
 
 /**
-* Main application class
-*
-* @author Abass Ben Cheik <abass@todaysdev.com>
-*/
+ * Main application class
+ *
+ * @author Abass Ben Cheik <abass@todaysdev.com>
+ */
 class App
 {
     /**
-    * @var App
-    */
+     * @var App
+     */
     public static App $app;
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     public static $APP_ROOT;
-    
+
     /**
-    * @var Router
-    */
+     * @var Router
+     */
     public Router $router;
-    
+
     /**
-    * @var Request
-    */
+     * @var Request
+     */
     public Request $request;
-    
+
     /**
-    * @var ServerRequestInterface
-    */
+     * @var ServerRequestInterface
+     */
     public ServerRequestInterface $serverRequest;
 
     /**
-    * @var Debugger
-    */
+     * @var Debugger
+     */
     public Debugger $debugger;
 
     /**
-    * App constructor
-    *
-    * @param ServerRequestInterface $serverRequest
-    * @param string $appRoot
-    *
-    * @return void
-    */
+     * App constructor
+     *
+     * @param ServerRequestInterface $serverRequest
+     * @param string $appRoot
+     *
+     * @return void
+     */
     public function __construct(ServerRequestInterface $serverRequest, string $appRoot)
     {
         self::$APP_ROOT = $appRoot;
@@ -76,7 +76,7 @@ class App
         $this->router = new Router($this->serverRequest);
         $this->debugger = new Debugger();
     }
-    
+
     /**
      * Get database connection
      *
@@ -86,7 +86,7 @@ class App
     {
         return (new Database());
     }
-     
+
     /**
      * Controllers loader
      *
@@ -123,12 +123,12 @@ class App
         }
     }
 
-   /**
-    * Run app
-    * @throws AppException
-    *
-    * @return void
-    */
+    /**
+     * Run app
+     * @throws AppException
+     *
+     * @return void
+     */
     public function run()
     {
         $stream = $this->router->pathResolver($this->serverRequest);

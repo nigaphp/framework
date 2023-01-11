@@ -9,7 +9,7 @@
  */
 declare(strict_types = 1);
  
-namespace Nigatedev\FrameworkBundle\Models;
+namespace Niga\Framework\Models;
 
 /**
  * Abstract model

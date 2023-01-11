@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Controller\Exception;
+namespace Niga\Framework\Controller\Exception;
 
 /**
  * Base controller exception

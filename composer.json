@@ -1,22 +1,23 @@
 {
-  "name": "nigatedev/framework-bundle",
-  "description": "Nigatedev framework bundle where Nigatedev framework dependencies live!",
+  "name": "niga/framework",
+  "description": "Niga framework",
   "type": "library",
   "keywords": [
     "framework",
-    "nigatedev",
-    "bundle"
+    "niga"
   ],
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Nigatedev\\FrameworkBundle\\": ""
+      "Niga\\Framework\\": ""
     }
   },
   "authors": [
     {
-      "name": "Abass Ben Cheik",
-      "email": "cheikabassben@gmail.com"
+      "name": "Abass Dev",
+      "email": "abass@abassdev.com",
+      "role": "Lead developer",
+      "homepage": "https://abassdev.com"
     }
   ],
   "require": {

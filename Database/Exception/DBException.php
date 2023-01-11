@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Database\Exception;
+namespace Niga\Framework\Database\Exception;
 
 /**
  * Database Exception

@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Handler;
+namespace Niga\Framework\Handler;
 
-use Nigatedev\FrameworkBundle\Debugger\Debugger;
+use Niga\Framework\Debugger\Debugger;
 
 /**
  * Errors Handler

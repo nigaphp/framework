@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Config;
+namespace Niga\FrameworkBundle\Config;
 
-use Nigatedev\Framework\Filesystem\Filesystem;
+use Niga\Framework\Filesystem\Filesystem;
 
 /**
  * Global Configurator
@@ -19,22 +19,22 @@ use Nigatedev\Framework\Filesystem\Filesystem;
  */
 class Configurator
 {
-   
-   /**
-    * @var Filesystem
-    */
+
+    /**
+     * @var Filesystem
+     */
     private Filesystem $filesystem;
-    
+
     /**
      * @var string
      */
-      const APP_MIN_VERSION = "7.3";
-     
+    const APP_MIN_VERSION = "7.3";
+
     /**
      * @var string
      */
-      const CURRENT_VERSION = PHP_VERSION;
-     
+    const CURRENT_VERSION = PHP_VERSION;
+
     /**
      * Constructor
      *
@@ -44,12 +44,12 @@ class Configurator
     {
         $this->filesystem = new Filesystem($ROOT);
     }
-    
+
     /**
      * @var string
      */
     private $controllerDir;
-     
+
     /**
      * @var string
      */
@@ -62,9 +62,9 @@ class Configurator
      */
     public function setControllerDir(string $controllerDir): void
     {
-        $this->controllerDir = (string)$this->filesystem->isDir(Filesystem::$ROOT.$controllerDir);
+        $this->controllerDir = (string)$this->filesystem->isDir(Filesystem::$ROOT . $controllerDir);
     }
-     
+
     /**
      * Get controllers directory
      *
@@ -72,10 +72,10 @@ class Configurator
      */
     public function getControllerDir(): string
     {
-        return $this->controllerDir ?? (string)$this->filesystem->isDir(Filesystem::$ROOT."/src/Controller");
+        return $this->controllerDir ?? (string)$this->filesystem->isDir(Filesystem::$ROOT . "/src/Controller");
     }
-     
-     
+
+
     /**
      * Set views directory
      *
@@ -84,9 +84,9 @@ class Configurator
      */
     public function setViewsDir(string $viewsDir): void
     {
-        $this->viewsDir = (string)$this->filesystem->isDir(Filesystem::$ROOT.$viewsDir);
+        $this->viewsDir = (string)$this->filesystem->isDir(Filesystem::$ROOT . $viewsDir);
     }
-     
+
     /**
      * Get views directory
      *
@@ -94,9 +94,9 @@ class Configurator
      */
     public function getViewsDir(): string
     {
-        return $this->viewsDir ?? (string)$this->filesystem->isDir(Filesystem::$ROOT."/views");
+        return $this->viewsDir ?? (string)$this->filesystem->isDir(Filesystem::$ROOT . "/views");
     }
-     
+
     /**
      * Get all configs
      *
@@ -105,8 +105,8 @@ class Configurator
     public function configGlobals()
     {
         return [
-             "controllerDir" => $this->getControllerDir(),
-             "viewsDir" => $this->getViewsDir(),
+            "controllerDir" => $this->getControllerDir(),
+            "viewsDir" => $this->getViewsDir(),
         ];
     }
 }

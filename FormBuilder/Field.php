@@ -9,9 +9,9 @@
  */
 declare(strict_types = 1);
  
-namespace Nigatedev\FrameworkBundle\FormBuilder;
+namespace Niga\Framework\FormBuilder;
 
-use Nigatedev\FrameworkBundle\Models\AbstractModel;
+use Niga\Framework\Models\AbstractModel;
 
 /**
  * Form fields

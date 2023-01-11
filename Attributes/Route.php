@@ -7,18 +7,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-declare(strict_types = 1);
 
-namespace Nigatedev\FrameworkBundle\Attributes;
+declare(strict_types=1);
+
+namespace Niga\Framework\Attributes;
 
 use Attribute;
-use Nigatedev\FrameworkBundle\Application\Configuration as Config;
+use Niga\Framework\Application\Configuration as Config;
 
 /**
-* Route Attribute
-*
-* @author Abass Ben Cheik <abass@todaysdev.com>
-*/
+ * Route Attribute
+ *
+ * @author Abass Ben Cheik <abass@todaysdev.com>
+ */
 
 #[Attribute]
 class Route
@@ -27,17 +28,17 @@ class Route
      * @var string
      */
     private $path;
-    
+
     /**
      * @var string
      */
     private $method;
-    
+
     /**
      * @var string
      */
     private $name;
-    
+
     /**
      * Route Attribute constructor
      *
@@ -53,7 +54,7 @@ class Route
         $this->method = $method;
         $this->name = $name;
     }
-    
+
     /**
      * Get HTTP method
      *
@@ -63,7 +64,7 @@ class Route
     {
         return strtolower($this->method);
     }
-    
+
     /**
      * Get the path
      *

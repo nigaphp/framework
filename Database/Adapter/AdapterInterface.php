@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Database\Adapter;
+namespace Niga\Framework\Database\Adapter;
 
 use PDO;
 

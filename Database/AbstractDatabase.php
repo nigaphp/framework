@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Database;
+namespace Niga\Framework\Database;
 
-use Nigatedev\FrameworkBundle\Database\Exception\ConfigurationException;
+use Niga\Framework\Database\Exception\ConfigurationException;
 
 /**
  * Abstract database

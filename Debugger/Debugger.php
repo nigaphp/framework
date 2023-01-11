@@ -4,7 +4,7 @@
  *
  *  (c) Abass Ben Cheik <abass@todaysdev.com>
  */
-namespace Nigatedev\FrameworkBundle\Debugger;
+namespace Niga\Framework\Debugger;
 
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;

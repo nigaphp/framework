@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Http;
+namespace Niga\Framework\Http;
 
 /**
  * Route generator

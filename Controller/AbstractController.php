@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
  
-namespace Nigatedev\FrameworkBundle\Controller;
+namespace Niga\Framework\Controller;
 
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
-use Nigatedev\FrameworkBundle\Application\App;
-use Nigatedev\FrameworkBundle\Http\Response;
-use Nigatedev\FrameworkBundle\Http\Request;
-use Nigatedev\FrameworkBundle\Controller\Exception\ControllerException;
+use Niga\Framework\Application\App;
+use Niga\Framework\Http\Response;
+use Niga\Framework\Http\Request;
+use Niga\Framework\Controller\Exception\ControllerException;
 use Nigatedev\Diyan\Diyan;
-use Nigatedev\FrameworkBundle\Application\Configuration;
+use Niga\Framework\Application\Configuration;
 
 /**
  * Main abstract controller

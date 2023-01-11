@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Database;
+namespace Niga\Framework\Database;
 
-use Nigatedev\FrameworkBundle\Database\Adapter\MysqlAdapter;
-use Nigatedev\FrameworkBundle\Database\Adapter\PostgresqlAdapter;
-use Nigatedev\FrameworkBundle\Database\Adapter\SqliteAdapter;
+use Niga\Framework\Database\Adapter\MysqlAdapter;
+use Niga\Framework\Database\Adapter\PostgresqlAdapter;
+use Niga\Framework\Database\Adapter\SqliteAdapter;
 
 /**
  * Database connection

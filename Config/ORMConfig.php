@@ -8,21 +8,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Nigatedev\FrameworkBundle\Config;
+namespace Niga\Framework\Config;
 
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
 /**
-* Doctrine orm configuration
-*
-* @author Abass Ben Cheik <abass@todaysdev.com>
-*/
+ * Doctrine orm configuration
+ *
+ * @author Abass Ben Cheik <abass@todaysdev.com>
+ */
 class ORMConfig
 {
-   /**
-    * Get doctrine orm entityManager
-    */
+    /**
+     * Get doctrine orm entityManager
+     */
     public function getEntityManagerConfig($connection, $annotation)
     {
 

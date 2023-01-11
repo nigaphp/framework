@@ -9,10 +9,10 @@
  */
 declare(strict_types = 1);
 
-namespace Nigatedev\FrameworkBundle\Http;
+namespace Niga\Framework\Http;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Nigatedev\FrameworkBundle\API\API;
+use Niga\Framework\API\API;
 
 /**
  * HTTP request

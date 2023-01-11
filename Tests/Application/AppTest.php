@@ -1,8 +1,8 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use Nigatedev\FrameworkBundle\Application\App;
+use Niga\Framework\Application\App;
 use GuzzleHttp\Psr7\ServerRequest as Request;
-use Nigatedev\FrameworkBundle\Http\Response;
+use Niga\Framework\Http\Response;
 
 class AppTest extends TestCase
 {
