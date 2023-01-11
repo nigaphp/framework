@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Niga\FrameworkBundle\Config;
+namespace NigaNiga\FrameworkConfig;
 
 use Niga\Framework\Filesystem\Filesystem;
 
