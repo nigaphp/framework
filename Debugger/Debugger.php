@@ -2,7 +2,7 @@
 /*
  * This file is part of the niga PHP framework package
  *
- *  (c) Abass Ben Cheik <abass@todaysdev.com>
+ *  (c) Abass Dev <abass@abassdev.com>
  */
 
 namespace Niga\Framework\Debugger;
@@ -13,7 +13,7 @@ use Whoops\Handler\PrettyPageHandler;
 /**
  * Debugger class
  *
- * @author Abass Ben Cheik <abass@todaysdev.com>
+ * @author Abass Dev <abass@abassdev.com>
  */
 class Debugger
 {

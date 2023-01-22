@@ -26,7 +26,7 @@
     "doctrine/cache": "~1.11",
     "niga/diyan": "2.x-dev",
     "niga/support": "2.x-dev",
-    "niga/query-builder": "2.x-dev",
+    "nigaphp/query-builder": "2.x-dev",
     "niga/filesystem": "2.x-dev",
     "niga/parser": "2.x-dev",
     "niga/console": "2.x-dev",

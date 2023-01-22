@@ -2,7 +2,7 @@
 /*
  * This file is part of the niga framework package.
  *
- * (c) Abass Ben Cheik <abass@todaysdev.com>
+ * (c) Abass Dev <abass@abassdev.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityManager;
 /**
  * Doctrine orm configuration
  *
- * @author Abass Ben Cheik <abass@todaysdev.com>
+ * @author Abass Dev <abass@abassdev.com>
  */
 class ORMConfig
 {

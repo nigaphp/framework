@@ -2,7 +2,7 @@
 /*
  * This file is part of the niga PHP framework package
  *
- * (c) Abass Ben Cheik <abass@todaysdev.com>
+ * (c) Abass Dev <abass@abassdev.com>
  */
 
 use Niga\Dumper\Dumper;

@@ -2,7 +2,7 @@
 /*
  * This file is part of the niga framework package.
  *
- * (c) Abass Ben Cheik <abass@todaysdev.com>
+ * (c) Abass Dev <abass@abassdev.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -24,7 +24,7 @@ use ReflectionClass;
 /**
  * Main application class
  *
- * @author Abass Ben Cheik <abass@todaysdev.com>
+ * @author Abass Dev <abass@abassdev.com>
  */
 class App
 {
@@ -124,7 +124,7 @@ class App
     }
 
     /**
-     * Run app
+     * Run the app
      * @throws AppException
      *
      * @return void
