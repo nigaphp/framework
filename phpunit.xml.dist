@@ -1,7 +1,7 @@
 <phpunit colors="true" verbose="true" testdox="true">
   <testsuites>
     <testsuite name="niga">
-      <directory>tests</directory>
+      <directory>Tests</directory>
     </testsuite>
   </testsuites>
 </phpunit>
